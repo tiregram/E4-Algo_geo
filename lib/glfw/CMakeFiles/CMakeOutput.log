@@ -1,0 +1,303 @@
+The system is: Linux - 4.4.39-1-lts - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/3.7.1/CompilerIdC/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a6767/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a6767.dir/build.make CMakeFiles/cmTC_a6767.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a6767.dir/testCCompiler.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_a6767.dir/testCCompiler.c.o   -c /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_a6767
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a6767.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_a6767.dir/testCCompiler.c.o  -o cmTC_a6767 -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_fc20f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_fc20f.dir/build.make CMakeFiles/cmTC_fc20f.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.7/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_fc20f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fc20f.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o  -o cmTC_fc20f -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/lto-wrapper
+Target: x86_64-pc-linux-gnu
+Configured with: /build/gcc-multilib/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++ --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-gnu-unique-object --enable-linker-build-id --enable-lto --enable-plugin --enable-install-libiberty --with-linker-hash-style=gnu --enable-gnu-indirect-function --enable-multilib --disable-werror --enable-checking=release
+Thread model: posix
+gcc version 6.2.1 20160830 (GCC) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_fc20f' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccMIHPfD.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_fc20f /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/crtbegin.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../.. CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/crtend.o /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_fc20f' '-rdynamic' '-mtune=generic' '-march=x86-64'
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_fc20f/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_fc20f.dir/build.make CMakeFiles/cmTC_fc20f.dir/build]
+  ignore line: [make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.7/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_fc20f]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fc20f.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o  -o cmTC_fc20f -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/lto-wrapper]
+  ignore line: [Target: x86_64-pc-linux-gnu]
+  ignore line: [Configured with: /build/gcc-multilib/src/gcc/configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=https://bugs.archlinux.org/ --enable-languages=c,c++,ada,fortran,go,lto,objc,obj-c++ --enable-shared --enable-threads=posix --enable-libmpx --with-system-zlib --with-isl --enable-__cxa_atexit --disable-libunwind-exceptions --enable-clocale=gnu --disable-libstdcxx-pch --disable-libssp --enable-gnu-unique-object --enable-linker-build-id --enable-lto --enable-plugin --enable-install-libiberty --with-linker-hash-style=gnu --enable-gnu-indirect-function --enable-multilib --disable-werror --enable-checking=release]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 6.2.1 20160830 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/:/lib/../lib/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_fc20f' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/collect2 -plugin /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/lto-wrapper -plugin-opt=-fresolution=/tmp/ccMIHPfD.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_fc20f /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crt1.o /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crti.o /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/crtbegin.o -L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1 -L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../.. CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/crtend.o /usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crtn.o]
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccMIHPfD.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_fc20f] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../..] ==> dir [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../..]
+    arg [CMakeFiles/cmTC_fc20f.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1] ==> [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1/../../..] ==> [/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/usr/lib/gcc/x86_64-pc-linux-gnu/6.2.1;/usr/lib;/lib]
+  implicit fwks: []
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_37a94/fast"
+/usr/bin/make -f CMakeFiles/cmTC_37a94.dir/build.make CMakeFiles/cmTC_37a94.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_37a94.dir/feature_tests.c.o
+/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_37a94.dir/feature_tests.c.o   -c /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/feature_tests.c
+Linking C executable cmTC_37a94
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37a94.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_37a94.dir/feature_tests.c.o  -o cmTC_37a94 -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b6124/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b6124.dir/build.make CMakeFiles/cmTC_b6124.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b6124.dir/feature_tests.c.o
+/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_b6124.dir/feature_tests.c.o   -c /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/feature_tests.c
+Linking C executable cmTC_b6124
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b6124.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_b6124.dir/feature_tests.c.o  -o cmTC_b6124 -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_78eff/fast"
+/usr/bin/make -f CMakeFiles/cmTC_78eff.dir/build.make CMakeFiles/cmTC_78eff.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_78eff.dir/feature_tests.c.o
+/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_78eff.dir/feature_tests.c.o   -c /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/feature_tests.c
+Linking C executable cmTC_78eff
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_78eff.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_78eff.dir/feature_tests.c.o  -o cmTC_78eff -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0b2a8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_0b2a8.dir/build.make CMakeFiles/cmTC_0b2a8.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_0b2a8.dir/CheckIncludeFile.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_0b2a8.dir/CheckIncludeFile.c.o   -c /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_0b2a8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0b2a8.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_0b2a8.dir/CheckIncludeFile.c.o  -o cmTC_0b2a8 -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d0c6e/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d0c6e.dir/build.make CMakeFiles/cmTC_d0c6e.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d0c6e.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_d0c6e.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d0c6e
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d0c6e.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_d0c6e.dir/CheckFunctionExists.c.o  -o cmTC_d0c6e -rdynamic -lpthread 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Determining if the function XOpenDisplay exists in the /usr/lib64/libX11.so;/usr/lib64/libXext.so passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a7652/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a7652.dir/build.make CMakeFiles/cmTC_a7652.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a7652.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=XOpenDisplay   -o CMakeFiles/cmTC_a7652.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
+Linking C executable cmTC_a7652
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a7652.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=XOpenDisplay    CMakeFiles/cmTC_a7652.dir/CheckFunctionExists.c.o  -o cmTC_a7652 -rdynamic /usr/lib64/libX11.so /usr/lib64/libXext.so 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Determining if the function gethostbyname exists passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_87970/fast"
+/usr/bin/make -f CMakeFiles/cmTC_87970.dir/build.make CMakeFiles/cmTC_87970.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_87970.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=gethostbyname   -o CMakeFiles/cmTC_87970.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
+Linking C executable cmTC_87970
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_87970.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethostbyname    CMakeFiles/cmTC_87970.dir/CheckFunctionExists.c.o  -o cmTC_87970 -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Determining if the function connect exists passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_196e3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_196e3.dir/build.make CMakeFiles/cmTC_196e3.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_196e3.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=connect   -o CMakeFiles/cmTC_196e3.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
+Linking C executable cmTC_196e3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_196e3.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=connect    CMakeFiles/cmTC_196e3.dir/CheckFunctionExists.c.o  -o cmTC_196e3 -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Determining if the function remove exists passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_41a20/fast"
+/usr/bin/make -f CMakeFiles/cmTC_41a20.dir/build.make CMakeFiles/cmTC_41a20.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_41a20.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=remove   -o CMakeFiles/cmTC_41a20.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
+Linking C executable cmTC_41a20
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_41a20.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=remove    CMakeFiles/cmTC_41a20.dir/CheckFunctionExists.c.o  -o cmTC_41a20 -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Determining if the function shmat exists passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9d21d/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9d21d.dir/build.make CMakeFiles/cmTC_9d21d.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9d21d.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=shmat   -o CMakeFiles/cmTC_9d21d.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
+Linking C executable cmTC_9d21d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9d21d.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=shmat    CMakeFiles/cmTC_9d21d.dir/CheckFunctionExists.c.o  -o cmTC_9d21d -rdynamic 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+
+Determining if the function IceConnectionNumber exists in the ICE passed with the following output:
+Change Dir: /home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d0d4c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d0d4c.dir/build.make CMakeFiles/cmTC_d0d4c.dir/build
+make[1]: Entering directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d0d4c.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=IceConnectionNumber   -o CMakeFiles/cmTC_d0d4c.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.7/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d0d4c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d0d4c.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=IceConnectionNumber    CMakeFiles/cmTC_d0d4c.dir/CheckFunctionExists.c.o  -o cmTC_d0d4c -rdynamic -lICE 
+make[1]: Leaving directory '/home/ruhtra/Downloads/test/meshviewer-clean/lib/glfw/CMakeFiles/CMakeTmp'
+
+

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libnfd.a  CMakeFiles/nfd.dir/nfd/src/nfd_gtk.c.o
+/usr/bin/ranlib libnfd.a
