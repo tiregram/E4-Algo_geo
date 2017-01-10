@@ -1,2 +1,0 @@
-/usr/bin/ar qc libnfd.a  CMakeFiles/nfd.dir/src/glew.c.o CMakeFiles/nfd.dir/src/glewinfo.c.o CMakeFiles/nfd.dir/src/visualinfo.c.o
-/usr/bin/ranlib libnfd.a

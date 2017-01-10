@@ -1,3 +1,0 @@
-/home/ruhtra/Downloads/test/meshviewer-clean/lib/nfd/CMakeFiles/rebuild_cache.dir
-/home/ruhtra/Downloads/test/meshviewer-clean/lib/nfd/CMakeFiles/edit_cache.dir
-/home/ruhtra/Downloads/test/meshviewer-clean/lib/nfd/CMakeFiles/nfd.dir
