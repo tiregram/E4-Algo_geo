@@ -20,6 +20,17 @@ myPoint3D myPoint3D::operator+(const myVector3D & v1)
 	return myPoint3D(X + v1.dX, Y + v1.dY, Z + v1.dZ);
 }
 
+double myPoint3D::dist(myPoint3D *p1, myVector3D *v2)
+{
+  myVector3D cu_p1 =  myVector3D(this->X - p1->X,this->Y - p1->Y, this->Z - p1->Z);
+  double p = *v2 * cu_p1 ;
+
+  myPoint3D po = *p1 + *v2 * p;
+
+  return this->dist(po);
+}
+
+
 myPoint3D myPoint3D::operator+(const myPoint3D & v1)
 {
 	return myPoint3D(X + v1.X, Y + v1.Y, Z + v1.Z);
@@ -126,7 +137,7 @@ double myPoint3D::dist(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3)
 	auto projOnP1_p2 = (vectp1_p2 * vectp1_cu) / vectp1_p2.length();
 	auto projOnP1_p3 = (vectp1_p3 * vectp1_cu) / vectp1_p3.length();
 
-	//auto q = myPoint3D(p1 + vectp1_p2 * projOnP1_p2 + vectp1_p3 * projOnP1_p2);
+	auto q = myPoint3D(*p1 + vectp1_p2 * projOnP1_p2 + vectp1_p3 * projOnP1_p2);
 
 	double a = 1;
 	double b = 1;
@@ -134,15 +145,13 @@ double myPoint3D::dist(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3)
 
 	bool isInside = a  >= 0 && b >= 0 && c >= 0 && a  <= 1 && b <= 1 && c <= 1;
 
-	if (true){
-
+	if (isInside){
+    return this->dist(q);
 	}
 	else {
 		return std::min(this->dist(p1,p2), std::min(this->dist(p2, p3), this->dist(p3, p1)));
 	}
 
-	//distance  between current point, and the triangled defined by p1,p2,p3.
-	/**** TODO ****/
 	return 0.0;
 }
 

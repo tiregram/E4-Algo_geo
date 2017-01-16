@@ -14,14 +14,15 @@ using namespace std;
 
 #include "myPoint3D.h"
 #include "myVector3D.h"
+#include "myFace.h"
 #include "myMesh.h"
 
 
 enum MENU { MENU_CATMULLCLARK, MENU_DRAWWIREFRAME, MENU_EXIT, MENU_DRAWMESH, MENU_LOOP, MENU_DRAWMESHVERTICES,
-	MENU_CONTRACTEDGE, MENU_CONTRACTFACE, MENU_DRAWCREASE, MENU_DRAWSILHOUETTE, 
-	MENU_GENERATE, MENU_CUT, MENU_INFLATE, MENU_SELECTEDGE, MENU_SELECTFACE, MENU_SELECTVERTEX,
-	MENU_SHADINGTYPE, MENU_SMOOTHEN, MENU_SPLITEDGE, MENU_SPLITFACE, MENU_SELECTCLEAR, 
-	MENU_TRIANGULATE, MENU_UNDO, MENU_WRITE, MENU_SIMPLIFY, MENU_DRAWNORMALS, MENU_OPENFILE
+            MENU_CONTRACTEDGE, MENU_CONTRACTFACE, MENU_DRAWCREASE, MENU_DRAWSILHOUETTE,
+            MENU_GENERATE, MENU_CUT, MENU_INFLATE, MENU_SELECTEDGE, MENU_SELECTFACE, MENU_SELECTVERTEX,
+            MENU_SHADINGTYPE, MENU_SMOOTHEN, MENU_SPLITEDGE, MENU_SPLITFACE, MENU_SELECTCLEAR,
+            MENU_TRIANGULATE, MENU_UNDO, MENU_WRITE, MENU_SIMPLIFY, MENU_DRAWNORMALS, MENU_OPENFILE,MENU_CHECK
 };
 
 myMesh *m;
@@ -167,7 +168,15 @@ void menu(int item)
 			exit(0);
 			break;
 		}
+    
+  case MENU_CHECK:
+		{
+      m->checkMesh();
+			break;
+		}
+
 	}
+
 	glutPostRedisplay();
 }
 
@@ -176,6 +185,9 @@ void menu(int item)
 //This function is called to display objects on screen.
 void display() 
 {
+  vector<GLfloat> color;
+  color.resize(4);
+
 	//Clearing the color on the screen.
   //	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -264,9 +276,60 @@ void display()
 		glEnd();
 	}
 
+
 	if (drawsilhouette)
 	{
-	}
+		glLineWidth(4.0);
+
+
+		color[0] = 1.0f, color[1] = 0.0f, color[2] = 0.0f, color[3] = 1.0f;
+		glUniform4fv(glGetUniformLocation(shaderprogram, "kd"), 1, &color[0]);
+
+		vector <GLuint> silhouette_edges;
+		for (vector<myHalfedge *>::iterator it = m->halfedges.begin(); it != m->halfedges.end(); it++)
+		{
+
+			myHalfedge* e = (*it);
+
+        myVertex *v1 = (*it)->source;
+			if ((*it)->twin == NULL) continue;
+			myVertex *v2 = (*it)->twin->source;
+
+
+      myVector3D ey_ray(v1->point->X - camera_eye.X, v1->point->Y - camera_eye.Y, v1->point->Z - camera_eye.Z);
+      
+      myFace* f1 = e->adjacent_face;
+      myFace* f2 = e->twin->adjacent_face;
+
+
+			//if ( *v1->normal * ey_ray1   < 0.2  and *v1->normal * ey_ray1   > - 0.2 and  *v2->normal * ey_ray2   < 0.2  and *v2->normal * ey_ray2   > - 0.2 )
+      if((*(f1->normal) * ey_ray < 0 and  *(f2->normal) * ey_ray > 0) or
+          (*(f1->normal) * ey_ray > 0 and  *(f2->normal) * ey_ray < 0) )
+			{
+				silhouette_edges.push_back(v1->index);
+				silhouette_edges.push_back(v2->index);
+			}
+		}
+
+		GLuint silhouette_edges_buffer;
+		glGenBuffers(1, &silhouette_edges_buffer);
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, silhouette_edges_buffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, silhouette_edges.size() * sizeof(GLuint),
+			&silhouette_edges[0], GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ARRAY_BUFFER, buffers[BUFFER_VERTICES]);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(0);
+
+		glBindBuffer(GL_ARRAY_BUFFER, buffers[BUFFER_NORMALS_PERVERTEX]);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glEnableVertexAttribArray(1);
+
+		glDrawElements(GL_LINES, silhouette_edges.size(), GL_UNSIGNED_INT, 0);
+
+		glDeleteBuffers(1, &silhouette_edges_buffer);
+ 	}
 
 
 	if (drawnormals)
@@ -342,9 +405,9 @@ void display()
 		glUseProgram(shaderprogram);
 	}
 
-	// //draw_text(0.0f,1.0f, 0, "Vertices:    " + to_string(static_cast<long long>(m->vertices.size())) );
-	// draw_text(0.0f,22.0f, 0,"Halfedges: " + to_string(static_cast<long long>(m->halfedges.size())) );
-	// draw_text(0.0f,41.0f, 0,"Faces:       " + to_string(static_cast<long long>(m->faces.size())) );
+	draw_text(0.0f,1.0f, 0, "Vertices:    " + to_string(static_cast<long long>(m->vertices.size())),color );
+	draw_text(0.0f,22.0f, 0,"Halfedges: " + to_string(static_cast<long long>(m->halfedges.size())),color );
+	draw_text(0.0f,41.0f, 0,"Faces:       " + to_string(static_cast<long long>(m->faces.size())),color );
 
 	glFlush();
 }

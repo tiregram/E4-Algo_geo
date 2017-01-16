@@ -31,19 +31,85 @@ void myMesh::clear()
 	vector<myFace *> empty_faces;         faces.swap(empty_faces);
 }
 
+
 void myMesh::checkMesh()
 {
-	vector<myHalfedge *>::iterator it;
-	for (it = halfedges.begin(); it != halfedges.end(); it++)
-	{
-		if ((*it)->twin == NULL)
-			break;
-	}
-	if (it != halfedges.end())
-		cout << "Error! Not all edges have their twins!\n";
-	else cout << "Each edge has a twin!\n";
-}
 
+	bool error;
+	unsigned int count;
+
+	cout << "Checking mesh for errors...\n";
+	cout << "\tNumber of vertices: " << vertices.size() << endl;
+	cout << "\tNumber of halfedges: " << halfedges.size() << endl;
+	cout << "\tNumber of faces: " << faces.size() << endl << endl;
+
+	cout << "\tChecking for NULL vertices. " << endl;
+	for (unsigned int i = 0;i < vertices.size();i++)
+	{
+		if (vertices[i] == NULL)
+			cout << "\t\tError: vertex " << i << " is NULL.\n";
+		else if (vertices[i]->originof == NULL)
+			cout << "\t\tError: the originof halfedge of vertex " << i << " is NULL.\n";
+	}
+	cout << "\t  Ended check.\n\n";
+
+	cout << "\tChecking the halfedges. " << endl;
+	error = false;
+	count = 0;
+	for (unsigned int i = 0;i < halfedges.size();i++)
+	{
+		if (halfedges[i]->source == NULL)
+			cout << "\tError: Source is NULL for halfedge " <<  i << endl;
+		if (halfedges[i]->twin == NULL) count++;
+		if (halfedges[i]->next == NULL || halfedges[i]->prev == NULL)
+			cout << "\tError: Next/prev NULL for halfedge " << i << endl;
+		if (halfedges[i]->next->prev != halfedges[i] || halfedges[i]->prev->next != halfedges[i])
+			cout << "\tError: Next/prev not set properly for halfedge " << i << endl;
+		if (halfedges[i]->twin != NULL && halfedges[i] != halfedges[i]->twin->twin)
+			cout << "\tError: Twin pair not set properly for halfedge " << i << endl;
+	}
+	if (count > 0) cout << "\tThis mesh has boundary edges.\n";
+	cout << "\t  Ended check.\n\n";
+
+	cout << "\tChecking fans of each vertex.\n";
+	for (unsigned int i = 0;i<vertices.size();i++) {
+		myVertex *v = vertices[i];
+
+		myHalfedge *e1 = v->originof;
+
+		unsigned int k = 0;
+		do {
+			k++;
+      // cout << e1 << ","<<e1->prev << "\n";
+			e1 = e1->prev->twin;
+			if (k > 100000) cout << "\t\tError: Infinite loop when checking adjacent edges for vertex " << i << endl;
+		} while (e1 != NULL && e1 != v->originof);
+	}
+	cout << "\t  Ended check.\n\n";
+
+	cout << "\tChecking edges of each face.\n";
+	unsigned int num_incidentedgesoverallfaces = 0;
+	bool istriangular = true;
+	for (unsigned i = 0;i<faces.size();i++) {
+		myHalfedge *e1 = faces[i]->adjacent_halfedge;
+		unsigned int k = 0;
+		do {
+			k++;
+			if (e1 == NULL) cout << "\t\tError: Found NULL edge on boundary of face " << i << endl;
+			e1 = e1->next;
+			if (k > 100000) cout << "\t\tError: Infinite loop when checking adjacent edges for face " << i << endl;
+		} while (e1 != faces[i]->adjacent_halfedge);
+		num_incidentedgesoverallfaces += k;
+		if (k>3) istriangular = false;
+	}
+	if (istriangular) cout << "\t\tThe mesh is triangular.\n";
+	else cout << "\t\tThe mesh is not triangular.\n";
+	if (num_incidentedgesoverallfaces != halfedges.size())
+		cout << "\t\tSuspicious: the total number of halfedges is not equal to the sum at each face.\n";
+	cout << "\t  Ended check.\n\n";
+
+	cout << "  Ended check of mesh.\n";
+}
 
 bool myMesh::readFile(std::string filename)
 {
@@ -72,10 +138,10 @@ bool myMesh::readFile(std::string filename)
 		{
 			double x, y, z;
 			myline >> x; myline >> y; myline >> z;
-			
+
 			myVertex *v = new myVertex();
 			v->point = new myPoint3D(x, y, z);
-			vertices.push_back(v);
+      vertices.push_back(v);
 		}
 		else if (t == "mtllib") {}
 		else if (t == "usemtl") {}
@@ -98,19 +164,33 @@ bool myMesh::readFile(std::string filename)
 			for (int i = 0; i < indices.size(); i++)
 			{
 				hedges[i]->source = vertices[indices[i]];
+        hedges[i]->source->originof = hedges[i];
 				hedges[i]->adjacent_face = f;
-				hedges[i]->next = hedges[(i + 1) % indices.size()];
+        hedges[i]->next = hedges[(i + 1) % indices.size()];
 				hedges[i]->prev = hedges[(i - 1 + indices.size()) % indices.size()];
 
-				myHalfedge *twin = new myHalfedge();
-				twin->twin = hedges[i];
-				hedges[i]->twin = twin;
+        twin_map[std::pair<int,int>(indices[i],indices[(i+1)%indices.size()]) ] = hedges[i];
 
 				halfedges.push_back(hedges[i]);
 			}
-			faces.push_back(f);
+
+      faces.push_back(f);
 		}
+
+    for(auto oneHalfEdje : twin_map)
+      {
+        auto elem = twin_map.find(std::make_pair(oneHalfEdje.first.second , oneHalfEdje.first.first));
+        if(elem == twin_map.end())
+          continue;
+
+        oneHalfEdje.second->twin = elem->second;
+        // cout << "(" << oneHalfEdje.first.first <<","<< oneHalfEdje.first.second << ")"
+        //      << oneHalfEdje.second << " link to "
+        //      << "(" << elem->first.first <<","<< elem->first.second << ")"
+        //      <<elem->second << "\n";
+      }
 	}
+
 
 	checkMesh();
 	normalize();
@@ -121,7 +201,17 @@ bool myMesh::readFile(std::string filename)
 
 void myMesh::computeNormals()
 {
-	/**** TODO ****/
+
+
+  for (auto face : this->faces) {
+    face->computeNormal();
+  }
+
+  for (auto vert : this->vertices) {
+    vert->computeNormal();
+  }
+
+
 }
 
 void myMesh::normalize()
@@ -185,13 +275,108 @@ void myMesh::subdivisionCatmullClark()
 
 void myMesh::triangulate()
 {
-	/**** TODO ****/
+  unsigned int size = this->faces.size();
+  for(int i = 0; i< size;i++)
+    {
+      // pass i for swap
+      this->triangulate(this->faces[i],i);
+    }
+
 }
 
 //return false if already triangle, true othewise.
-bool myMesh::triangulate(myFace *f)
+bool myMesh::triangulate(myFace *f,int place)
 {
-	/**** TODO ****/
-	return false;
+  // check if it is a triangle
+  if( f->adjacent_halfedge->next->next == f->adjacent_halfedge or // 2 
+      f->adjacent_halfedge->next->next->next == f->adjacent_halfedge)//3
+    {
+      return false;
+    }
+
+  myHalfedge * ed = f->adjacent_halfedge->next->next;
+  std::vector<myFace*> fv;
+
+  std::vector<myHalfedge*> in;
+  std::vector<myHalfedge*> out;
+
+
+  in.push_back(f->adjacent_halfedge);
+  fv.push_back(new myFace());
+
+  while (f->adjacent_halfedge->prev != ed )
+    {
+      fv.push_back(new myFace());
+      in.push_back(new myHalfedge());
+      out.push_back(new myHalfedge());
+
+      ed = ed->next;
+    }
+
+  out.push_back(f->adjacent_halfedge->prev);
+
+  myHalfedge*  e =  f->adjacent_halfedge->next;
+  myHalfedge*  next_e = NULL;
+
+  for (int i = 0; i < in.size(); i++) {
+    next_e = e->next;
+
+    // next
+    in[i]->next = e;
+    e->next = out[i];
+    out[i]->next = in[i];
+
+    // prev
+    in[i]->prev = out[i];
+    out[i]->prev = e;
+    e->prev = in[i];
+
+    // source
+    in[i]->source = f->adjacent_halfedge->source;
+    out[i]->source = e->twin->source;
+
+    // twin of out
+    if(i != in.size()-1){
+      out[i]->twin = in[i+1];
+    }
+
+    // twin of in
+    if(i != 0){
+      in[i]->twin = out[i-1];
+    }
+
+    // adjacentface
+    in[i]->adjacent_face = fv[i];
+    out[i]->adjacent_face = fv[i];
+    e->adjacent_face = fv[i];
+
+    e = next_e;
+  }
+
+
+
+  for (int i = 0; i < fv.size(); i++) {
+    fv[i]->adjacent_halfedge = in[i];
+  }
+
+  // swap faces
+  this->faces[place] = fv[0];
+
+  // add faces
+  for (int i = 1; i < fv.size(); i++) {
+    this->faces.push_back(fv[i]);
+  }
+
+  // add in
+  for (int i = 1; i < in.size(); i++) {
+    this->halfedges.push_back(in[i]);
+  }
+
+  // add out
+  for (int i = 0; i < out.size()-1; i++) {
+    this->halfedges.push_back(out[i]);
+  }
+
+  delete(f);
 }
 

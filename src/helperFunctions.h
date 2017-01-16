@@ -55,6 +55,8 @@ bool drawsilhouette = false;
 bool drawnormals = false;
 
 
+
+
 void makeBuffers(myMesh *input_mesh)
 {
 	vector <GLfloat> verts; verts.clear();
@@ -216,6 +218,28 @@ void makeBuffers(myMesh *input_mesh)
 }
 
 
+myVector3D * constructRay(int x, int y)
+{
+	glm::mat4 projection_matrix = glm::perspective(glm::radians(fovy), (float)Glut_w / (float)Glut_h, zNear, zFar);
+	glm::mat4 view_matrix = glm::lookAt(glm::vec3(camera_eye.X, camera_eye.Y, camera_eye.Z),
+                                      glm::vec3(camera_eye.X + camera_forward.dX, camera_eye.Y + camera_forward.dY, camera_eye.Z + camera_forward.dZ),
+                                      glm::vec3(camera_up.dX, camera_up.dY, camera_up.dZ));
+
+	float x_c = (2.0*x) / (float)Glut_w - 1.0;
+	float y_c = (2.0*y) / (float)Glut_h - 1.0;
+
+	glm::vec4 tmp = glm::vec4(x_c, y_c, -1.0f, 1.0f);
+  tmp = glm::inverse(projection_matrix) * tmp;
+	tmp.z = -1.0f;
+	tmp.w = 0.0f;
+
+	tmp = glm::inverse(view_matrix) * tmp;
+
+	myVector3D *r = new myVector3D(tmp.x, tmp.y, tmp.z);
+	r->normalize();
+	return r;
+}
+ 
 void draw_text(GLfloat x, GLfloat y, GLfloat z, string text, vector<GLfloat> color)
 {
 	glUseProgram(0);
@@ -368,42 +392,75 @@ bool PickedPoint(int x, int y)
 }
 
 
-//This function is called when a mouse button is pressed.
+
 void mouse(int button, int state, int x, int y)
 {
-	// Remember button state
+	// Remember button state 
 	button_pressed = (state == GLUT_DOWN) ? 1 : 0;
 
-	// Remember mouse position
+	// Remember mouse position 
 	GLUTmouse[0] = x;
 	GLUTmouse[1] = Glut_h - y;
 
 	int mode = glutGetModifiers();
 	// Process mouse button event
 	if (state == GLUT_DOWN)
-	{
-		if (button == GLUT_LEFT_BUTTON) {
-			if (mode == GLUT_ACTIVE_CTRL)
-			{
-				glUseProgram(0);
-				pickedpoint = new myPoint3D();
-				if (!PickedPoint(x, Glut_h - y)) delete pickedpoint;
-				glUseProgram(shaderprogram);
-				menu(MENU_SELECTVERTEX);
-			}
-			if (mode == GLUT_ACTIVE_SHIFT) {
-			}
-		}
-		else if (button == GLUT_MIDDLE_BUTTON) {}
-		else if (button == GLUT_RIGHT_BUTTON) {}
-	}
+    {
+      if (button == GLUT_LEFT_BUTTON) {
+        if (mode == GLUT_ACTIVE_CTRL)
+          {
+            cout << "Picking a point.\n";
+            myVector3D *picking_ray = constructRay(x, Glut_h - y);
+            /////////////// VERTEX
+            double bestDist = DBL_MAX;
+            closest_vertex = NULL;
+            cout << picking_ray->dX<<","<<picking_ray->dY<<","<<picking_ray->dZ <<  "\n";
+            for(auto p : m->vertices)
+              {
+
+                double curent_dist = abs(p->point->dist(&camera_eye, picking_ray ));
+                if(curent_dist < bestDist)
+                  {
+                    cout<<"abs "<< curent_dist<<"\n";
+                    bestDist = curent_dist;
+                    closest_vertex = p;
+                  }
+              }
+
+
+            //////////// hedge
+            double bestDistedhe = DBL_MAX;
+
+            for(auto p : m->halfedges)
+              {
+                double curent_dist = p->
+                if(curent_dist < bestDistedhe)
+                  {
+                    cout<<"abs "<< curent_dist<<"\n";
+                    bestDistedhe = curent_dist;
+                    closest_edge = p;
+                  }
+              }
+
+
+
+
+          }
+        if (mode == GLUT_ACTIVE_SHIFT) {
+        }
+      }
+      else if (button == GLUT_MIDDLE_BUTTON) {}
+      else if (button == GLUT_RIGHT_BUTTON) {}
+    }
 
 	if (state == GLUT_UP)
-	{
-	}
+    {
+    }
 
 	glutPostRedisplay();
 }
+
+
 
 //This function is called when the mouse is dragged.
 void mousedrag(int x, int y)
@@ -509,11 +566,33 @@ void keyboard(unsigned char key, int x, int y) {
 		glDeleteVertexArrays(10, &vaos[0]);
 		exit(0);
 		break;
-	case 'm':
-		break;
 	case 'h':
 		cout << "The keys for various algorithms are:\n";
 		break;
+
+  case 'n':
+    menu(MENU_DRAWNORMALS);
+
+    break;
+
+
+  case 'c':
+    menu(MENU_CHECK);
+    break;
+
+    break;
+  case 't':
+    menu(MENU_TRIANGULATE);
+      break;
+
+  case 's':
+    menu(MENU_DRAWSILHOUETTE);
+      break;
+
+  case 'm':
+    menu(MENU_DRAWMESH);
+    break;
+
 	}
 	glutPostRedisplay();
 }
@@ -700,3 +779,4 @@ GLuint initprogram(GLuint vertexshader, GLuint fragmentshader)
 	}
 	return program;
 }
+

@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 2.6)
 
+
 project (MeshViewer)
+set(CMAKE_BUILD_TYPE Debug)
 add_subdirectory (lib)
 
 find_package(OpenGL REQUIRED)
@@ -74,7 +76,10 @@ include_directories(
 
 
 add_executable(Mesh.bin ${src_mesh})
+#add_executable(Meshtest.bin srctest/main.cpp)
 
 target_link_libraries(Mesh.bin 
 	${ALL_LIBS}
 )
+
+

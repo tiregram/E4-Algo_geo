@@ -35,6 +35,7 @@ public:
   void rotate(myVector3D & lp, double theta);
   void print(char *s);
   double dist(myPoint3D *p1, myPoint3D *p2);
+  double dist(myPoint3D *p1, myVector3D *v2);
   double dist(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3);
   void circumcenter(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3, myPoint3D *p4);
 };

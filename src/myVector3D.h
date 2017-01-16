@@ -20,7 +20,7 @@ public:
 
   myVector3D(double dx, double dy, double dz);
   double operator*(myVector3D & v1);
-  myVector3D operator+(myVector3D & v1);
+  //myVector3D operator+(myVector3D & v1);
   myVector3D operator+(myVector3D v1);
   
   myVector3D operator+=(myVector3D v);

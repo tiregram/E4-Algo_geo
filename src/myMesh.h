@@ -7,7 +7,8 @@
 
 class myMesh
 {
-public:
+
+ public:
 	std::vector<myVertex *> vertices;
 	std::vector<myHalfedge *> halfedges;
 	std::vector<myFace *> faces;
@@ -26,7 +27,7 @@ public:
 	void splitFaceQUADS(myFace *, myPoint3D *);
 
 	void triangulate();
-	bool triangulate(myFace *);
+	bool triangulate(myFace *,int place);
 
 	void clear();
 

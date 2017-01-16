@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/Meshtest.bin.dir/srctest/main.cpp.o  -o Meshtest.bin -rdynamic -lGLU -lGL -lGLU -lGL -lGLEW -lglut -lXmu -lXi -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 lib/nfd/libnfd.a 

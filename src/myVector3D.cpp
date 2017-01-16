@@ -16,10 +16,10 @@ double myVector3D::operator*(myVector3D & v1)
     return (v1.dX*dX + v1.dY*dY + v1.dZ*dZ);
 }
 
-myVector3D myVector3D::operator+(myVector3D & v1)
-{
-	return myVector3D(dX+v1.dX, dY+v1.dY, dZ+v1.dZ);
-}
+// myVector3D myVector3D::operator+(myVector3D & v1)
+// {
+// 	return myVector3D(dX+v1.dX, dY+v1.dY, dZ+v1.dZ);
+// }
 
 myVector3D myVector3D::operator+(myVector3D  v1)
 {

@@ -3,6 +3,7 @@
 #include "myHalfedge.h"
 #include "myFace.h"
 #include <vector>
+#include <iostream>
 
 myVertex::myVertex(void)
 {
@@ -18,8 +19,19 @@ myVertex::~myVertex(void)
 
 void myVertex::computeNormal()
 {
-	auto faces = std::vector<myFace>(3);
+
+  myHalfedge* first = this->originof;
+
+  *(this->normal) = *(this->originof->adjacent_face->normal);
+
+  int count = 0;
+  for(myHalfedge* f = this->originof->twin->next;
+        f != first;
+        f = f->twin->next )
+      {
+               *(this->normal) = *(this->normal) + *(f->adjacent_face->normal);
+      }
 
 
-  //	this->normal = 
+    this->normal->normalize();
 }
