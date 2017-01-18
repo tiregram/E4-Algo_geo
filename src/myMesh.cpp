@@ -6,6 +6,8 @@
 #include <utility>
 #include <GL/glew.h>
 #include "myPoint3D.h"
+#include "myVector3D.h"
+
 
 using namespace std;
 
@@ -14,6 +16,17 @@ myMesh::myMesh(void)
 	/**** TODO ****/
 }
 
+
+// myMesh::myMesh(const myMesh& o)
+// {
+// 	this->name = o->name;
+//   //face
+
+//   //edge
+
+//   //vertices
+
+// }
 
 myMesh::~myMesh(void)
 {
@@ -255,11 +268,7 @@ void myMesh::splitFaceTRIS(myFace *f, myPoint3D *p)
 	/**** TODO ****/
 }
 
-void myMesh::splitEdge(myHalfedge *e1, myPoint3D *p)
-{
 
-	/**** TODO ****/
-}
 
 void myMesh::splitFaceQUADS(myFace *f, myPoint3D *p)
 {
@@ -281,6 +290,81 @@ void myMesh::triangulate()
       // pass i for swap
       this->triangulate(this->faces[i],i);
     }
+
+}
+
+void myMesh::splitFace(myFace *f, myPoint3D *p)
+{
+
+   int count = 1;
+
+   std::vector<myHalfedge*> ex;
+   std::vector<myFace*> nface;
+   std::vector<myHalfedge*> in;
+   std::vector<myHalfedge*> out;
+   myHalfedge* e = f->adjacent_halfedge;
+
+   myVertex* nv = new myVertex();
+   nv->point = p;
+
+   do
+     {
+       nface.push_back(new myFace());
+       out.push_back(new myHalfedge());
+       in.push_back(new myHalfedge());
+       ex.push_back(e);
+       e = e->next;
+     }
+   while(e != f->adjacent_halfedge);
+
+   nv->originof = in[0];
+
+   for (int i = 0; i < count; i++)
+     {
+
+       out[i]->next = ex[i];
+       ex[i]->next  = in[i];
+       in[i]->next  = out[i];
+
+       out[i]->prev = in[i];
+       in[i]->prev  = ex[i];
+       ex[i]->prev  = out[i];
+
+       nface[i]->adjacent_halfedge = in[i];
+
+       out[i]->adjacent_face = nface[i];
+       in[i]->adjacent_face  = nface[i];
+       ex[i]->adjacent_face  = nface[i];
+
+       out[i]->source = nv;
+       in[i]->source  = ex[i]->twin->source;
+
+       // twin
+       in[i]->twin = out[(i-1+count)%count];
+       out[i]->twin = in[(i+1)%count];
+
+     }
+
+
+   //add faces
+   nface[0]->index = f->index;
+   this->faces[f->index] = nface[0];
+
+   // add in
+   for (int i = 1; i < nface.size(); i++) {
+     nface[i]->index = this->faces.size();
+     this->faces.push_back(nface[i]);
+   }
+
+   delete f ;
+
+   for (int i = 1; i < in.size(); i++){
+     out[i]->index = this->halfedges.size();
+     this->halfedges.push_back(out[i]);
+
+     in[i]->index = this->halfedges.size();
+     this->halfedges.push_back(in[i]);
+   }
 
 }
 
@@ -380,3 +464,107 @@ bool myMesh::triangulate(myFace *f,int place)
   delete(f);
 }
 
+void myMesh::inflateMesh(double dist)
+{
+  for (auto v : this->vertices) {
+    *(v->point) =*(v->point)+ ((*(v->normal))*dist);
+ }
+}
+
+void myMesh::smoothenMesh(double dist)
+{
+  std::vector<myPoint3D> copy(this->vertices.size());
+
+  for (int i = 0; i < this->vertices.size(); i++) {
+    auto X = this->vertices[i]->overageNeib();
+    copy[i] = (*(this->vertices[i]->point))*(1-dist) + (X)*dist;
+  }
+
+  for (int i = 0; i < this->vertices.size(); i++) {
+    *(this->vertices[i]->point) = copy[i];
+  }
+
+}
+
+void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
+{
+  auto v = new myVertex();
+  v->point = p;
+
+  //
+  auto b_p = new myHalfedge();
+  b_p->source = e->source;
+  b_p->adjacent_face = e->adjacent_face;
+
+  auto p_b = new myHalfedge();
+  p_b->source = v;
+  p_b->adjacent_face = e->twin->adjacent_face;
+
+  auto p_e = new myHalfedge();
+  p_e->source = v;
+  p_e->adjacent_face = e->adjacent_face;
+
+  auto e_p = new myHalfedge();
+  e_p->source = e->twin->source;
+  e_p->adjacent_face = e->twin->adjacent_face;
+
+  // TWIN
+  p_b->twin = b_p;
+  b_p->twin = p_b;
+
+  p_e->twin = e_p;
+  e_p->twin = p_e;
+
+  // next and prev
+  p_e->prev = b_p;
+  b_p->prev = e->prev;
+
+  b_p->next = p_e;
+  p_e->next = e->next;
+
+  p_b->prev = e_p;
+  e_p->prev = e->twin->prev;
+
+  e_p->next = p_b;
+  p_b->next = e->twin->next;
+
+  //// after this point dont read e;
+  e->prev->next = b_p;
+  e->next->prev = p_e;
+
+  e->twin->prev->next = e_p;
+  e->twin->next->next = p_b;
+
+  v->originof = p_b;
+
+  //indice
+  //and check if e is
+  if(e == e->adjacent_face->adjacent_halfedge)
+    {
+      e->adjacent_face->adjacent_halfedge = b_p;
+    }
+
+  if(e->twin == e->twin->adjacent_face->adjacent_halfedge)
+    {
+      e->twin->adjacent_face->adjacent_halfedge = p_e;
+    }
+
+
+  b_p->index = e->index;
+  this->halfedges[b_p->index] = b_p;
+
+  e_p->index = e->twin->index;
+  this->halfedges[e_p->index] = e_p;
+
+  p_e->index = this->halfedges.size();
+  this->halfedges.push_back(p_e);
+
+  p_b->index = this->halfedges.size();
+  this->halfedges.push_back(p_b);
+
+  this->vertices.push_back(v);
+
+  delete(e->twin);
+  delete(e);
+
+}

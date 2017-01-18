@@ -15,6 +15,7 @@ public:
 
 	myVector3D *normal;
 
+  myPoint3D overageNeib();
 	void computeNormal();
 	myVertex(void);
 	~myVertex(void);

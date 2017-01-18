@@ -116,6 +116,7 @@ CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: src/myHalfedge.h
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: src/myMesh.cpp
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: src/myMesh.h
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: src/myPoint3D.h
+CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: src/myVector3D.h
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: src/myVertex.h
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: lib/tchar/tchar.h
 

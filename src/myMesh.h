@@ -19,7 +19,11 @@ class myMesh
 	void computeNormals();
 	void normalize();
 
-	void subdivisionCatmullClark();
+  void inflateMesh(double dist);
+  void smoothenMesh(double dist);
+  void splitFace(myFace *f, myPoint3D *p);
+  
+  void subdivisionCatmullClark();
 
 	void splitFaceTRIS(myFace *, myPoint3D *);
 

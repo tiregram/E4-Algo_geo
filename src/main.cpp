@@ -63,6 +63,14 @@ void menu(int item)
 			drawmesh = !drawmesh;
 			break;
 		}
+  case MENU_SMOOTHEN:
+		{
+      m->smoothenMesh(0.05);
+			m->computeNormals();
+      makeBuffers(m);
+			break;
+		}
+
 	case MENU_DRAWMESHVERTICES:
 		{
 			drawmeshvertices = !drawmeshvertices;
@@ -119,10 +127,14 @@ void menu(int item)
 		}
 	case MENU_INFLATE:
 		{
-			for (vector<myVertex *>::iterator it = m->vertices.begin(); it != m->vertices.end(); it++)
-				*((*it)->point) = *((*it)->point) + *((*it)->normal)*0.01;
+      m->inflateMesh(0.01);
+      m->computeNormals();
+      makeBuffers(m);
+
+      //      for (vector<myVertex *>::iterator it = m->vertices.begin(); it != m->vertices.end(); it++)
+			//	*((*it)->point) = *((*it)->point) + *((*it)->normal)*0.01;
 			break;
-			makeBuffers(m);
+
 	}
 	case MENU_CATMULLCLARK:
 		{
@@ -140,14 +152,23 @@ void menu(int item)
 			m->computeNormals();
 			makeBuffers(m);
 			break;
-		}		
+		}
+
 	case MENU_SPLITFACE:
 		{
-			if (pickedpoint != NULL && closest_face != NULL)	
-				m->splitFaceTRIS(closest_face, pickedpoint);
-			clear();		
-			m->computeNormals();
-			makeBuffers(m);
+      cout << "split faces"  << "\n";
+      if (closest_vertex != NULL){
+        cout << "split faces"  << "\n";
+        m->splitFace(m->faces[0], pickedpoint);
+        m->computeNormals();
+        makeBuffers(m);
+      }
+
+      // if (pickedpoint != NULL && closest_face != NULL)
+			// 	m->splitFaceTRIS(closest_face, pickedpoint);
+			// clear();		
+			// m->computeNormals();
+			// makeBuffers(m);
 			break;
 		}
 	case MENU_OPENFILE:

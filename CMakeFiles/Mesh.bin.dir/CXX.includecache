@@ -93,6 +93,8 @@ GL/glew.h
 -
 myPoint3D.h
 /home/ruhtra/Downloads/test/E4-Algo_geo/src/myPoint3D.h
+myVector3D.h
+/home/ruhtra/Downloads/test/E4-Algo_geo/src/myVector3D.h
 
 /home/ruhtra/Downloads/test/E4-Algo_geo/src/myMesh.h
 myFace.h

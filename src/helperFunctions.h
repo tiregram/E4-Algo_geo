@@ -428,19 +428,22 @@ void mouse(int button, int state, int x, int y)
               }
 
 
-            //////////// hedge
-            double bestDistedhe = DBL_MAX;
+            /* //////////// hedge */
+            /* double bestDistedhe = DBL_MAX; */
 
-            for(auto p : m->halfedges)
-              {
-                double curent_dist = p->
-                if(curent_dist < bestDistedhe)
-                  {
-                    cout<<"abs "<< curent_dist<<"\n";
-                    bestDistedhe = curent_dist;
-                    closest_edge = p;
-                  }
-              }
+            /* for(auto p : m->halfedges) */
+            /*   { */
+            /*     myVector3D cu(); */
+            /*     myVector3D clt = picking_ray.crossproduct(); */
+
+            /*     double curent_dist = */
+            /*     if(curent_dist < bestDistedhe) */
+            /*       { */
+            /*         cout<<"abs "<< curent_dist<<"\n"; */
+            /*         bestDistedhe = curent_dist; */
+            /*         closest_edge = p; */
+            /*       } */
+            /*   } */
 
 
 
@@ -591,6 +594,23 @@ void keyboard(unsigned char key, int x, int y) {
 
   case 'm':
     menu(MENU_DRAWMESH);
+    break;
+
+  case 'i':
+    menu(MENU_INFLATE);
+    break;
+
+  case 'F':
+    menu(MENU_SPLITFACE);
+    break;
+
+  case 'E':
+    menu(MENU_SPLITEDGE);
+    break;
+
+
+  case 'S':
+    menu(MENU_SMOOTHEN);
     break;
 
 	}

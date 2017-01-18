@@ -117,6 +117,7 @@ CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o
  /home/ruhtra/Downloads/test/E4-Algo_geo/src/myMesh.cpp
  /home/ruhtra/Downloads/test/E4-Algo_geo/src/myMesh.h
  /home/ruhtra/Downloads/test/E4-Algo_geo/src/myPoint3D.h
+ /home/ruhtra/Downloads/test/E4-Algo_geo/src/myVector3D.h
  /home/ruhtra/Downloads/test/E4-Algo_geo/src/myVertex.h
  lib/tchar/tchar.h
 CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.o

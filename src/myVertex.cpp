@@ -35,3 +35,25 @@ void myVertex::computeNormal()
 
     this->normal->normalize();
 }
+
+myPoint3D myVertex::overageNeib()
+{
+
+  myHalfedge* first = this->originof;
+
+  int count = 1;
+  myPoint3D ret = *this->originof->twin->source->point;
+
+
+  for(myHalfedge* f = this->originof->twin->next;
+      f != first;
+      f = f->twin->next )
+    {
+      count++;
+      ret = ret + *f->twin->source->point;
+    }
+
+  ret =  ret / count;
+
+  return ret;
+}
