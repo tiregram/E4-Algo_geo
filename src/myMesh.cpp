@@ -225,13 +225,12 @@ void myMesh::computeNormals()
   for (auto face : this->faces) {
     face->computeNormal();
   }
-  cout <<"end compute face"  << "\n";
 
   for (auto vert : this->vertices) {
     vert->computeNormal();
-    cout << "lap "<< vert->index << "\n";
+
   }
-  cout <<"end compute vert"  << "\n";
+
 
 
 }
@@ -344,10 +343,6 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
 
        nface[i]->adjacent_halfedge = in[i];
 
-       if (in[i]==NULL) {
-         cout << ">>>" << "\n";
-       }
-
        out[i]->source = nv;
        in[i]->source  = ex[i]->twin->source;
 
@@ -360,8 +355,7 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
 
    //add faces
    nface[0]->index = f->index;
-   cout << "ind" << f->index << "\n";
-   this->faces[nface[0]->index] = nface[0];
+      this->faces[nface[0]->index] = nface[0];
 
    for (int i = 1; i < nface.size(); i++)
      {
@@ -509,10 +503,12 @@ void myMesh::smoothenMesh(double dist)
 void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
 {
 
+  // se_fi = 
+  // se_la =
   auto v = new myVertex();
   v->point = p;
 
-  //
+
   auto b_p = new myHalfedge();
   b_p->source = e->source;
   b_p->adjacent_face = e->adjacent_face;
@@ -530,6 +526,8 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
   e_p->adjacent_face = e->twin->adjacent_face;
 
   e->source->originof = b_p;
+  e->twin->source->originof = e_p;
+
   // TWIN
   p_b->twin = b_p;
   b_p->twin = p_b;
@@ -585,12 +583,6 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
 
   v->index = this->vertices.size();
   this->vertices.push_back(v);
-
-  cout
-    <<"b_p " << b_p->index << " "
-    <<"p_e " << p_e->index << " "
-    <<"e_p " << e_p->index << " "
-    <<"p_b " << p_b->index << "\n";
 
   delete(e->twin);
   delete(e);
