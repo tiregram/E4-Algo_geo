@@ -146,20 +146,30 @@ void menu(int item)
 		}
 	case MENU_SPLITEDGE:
 		{
-			if (pickedpoint != NULL && closest_edge != NULL)	
-				m->splitEdge(closest_edge, pickedpoint);
-			clear();
-			m->computeNormals();
-			makeBuffers(m);
+
+
+      m->splitEdge(m->halfedges[0], new myPoint3D(0,0,0));
+      cout << "split edges is done" << "\n";
+      m->checkMesh();
+      //clear();
+      m->computeNormals();
+      makeBuffers(m);
+
+			// if (pickedpoint != NULL && closest_edge != NULL)
+			// 	m->splitEdge(closest_edge, pickedpoint);
+			// clear();
+			// m->computeNormals();
+			// makeBuffers(m);
 			break;
 		}
 
 	case MENU_SPLITFACE:
 		{
-      cout << "split faces"  << "\n";
+      cout << "split faces try"  << "\n";
       if (closest_vertex != NULL){
         cout << "split faces"  << "\n";
-        m->splitFace(m->faces[0], pickedpoint);
+        m->splitFace(m->faces[0], new myPoint3D(0,0,0) );
+        m->checkMesh();
         m->computeNormals();
         makeBuffers(m);
       }

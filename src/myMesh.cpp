@@ -95,7 +95,9 @@ void myMesh::checkMesh()
 			k++;
       // cout << e1 << ","<<e1->prev << "\n";
 			e1 = e1->prev->twin;
-			if (k > 100000) cout << "\t\tError: Infinite loop when checking adjacent edges for vertex " << i << endl;
+
+			if (k > 100000)
+        cout << "\t\tError: Infinite loop when checking adjacent edges for vertex " << i <<" avec e="<< e1<<" index="<< e1->index <<endl;
 		} while (e1 != NULL && e1 != v->originof);
 	}
 	cout << "\t  Ended check.\n\n";
@@ -154,6 +156,8 @@ bool myMesh::readFile(std::string filename)
 
 			myVertex *v = new myVertex();
 			v->point = new myPoint3D(x, y, z);
+
+      v->index = vertices.size();
       vertices.push_back(v);
 		}
 		else if (t == "mtllib") {}
@@ -184,9 +188,11 @@ bool myMesh::readFile(std::string filename)
 
         twin_map[std::pair<int,int>(indices[i],indices[(i+1)%indices.size()]) ] = hedges[i];
 
+        hedges[i]->index = halfedges.size();
 				halfedges.push_back(hedges[i]);
 			}
 
+      f->index = this->faces.size();
       faces.push_back(f);
 		}
 
@@ -219,10 +225,13 @@ void myMesh::computeNormals()
   for (auto face : this->faces) {
     face->computeNormal();
   }
+  cout <<"end compute face"  << "\n";
 
   for (auto vert : this->vertices) {
     vert->computeNormal();
+    cout << "lap "<< vert->index << "\n";
   }
+  cout <<"end compute vert"  << "\n";
 
 
 }
@@ -296,7 +305,7 @@ void myMesh::triangulate()
 void myMesh::splitFace(myFace *f, myPoint3D *p)
 {
 
-   int count = 1;
+
 
    std::vector<myHalfedge*> ex;
    std::vector<myFace*> nface;
@@ -314,13 +323,16 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
        in.push_back(new myHalfedge());
        ex.push_back(e);
        e = e->next;
-     }
+          }
    while(e != f->adjacent_halfedge);
-
-   nv->originof = in[0];
+   int count = ex.size();
+      nv->originof = in[0];
 
    for (int i = 0; i < count; i++)
      {
+       out[i]->adjacent_face = nface[i];
+       in[i]->adjacent_face  = nface[i];
+       ex[i]->adjacent_face  = nface[i];
 
        out[i]->next = ex[i];
        ex[i]->next  = in[i];
@@ -332,39 +344,42 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
 
        nface[i]->adjacent_halfedge = in[i];
 
-       out[i]->adjacent_face = nface[i];
-       in[i]->adjacent_face  = nface[i];
-       ex[i]->adjacent_face  = nface[i];
+       if (in[i]==NULL) {
+         cout << ">>>" << "\n";
+       }
 
        out[i]->source = nv;
        in[i]->source  = ex[i]->twin->source;
 
        // twin
-       in[i]->twin = out[(i-1+count)%count];
-       out[i]->twin = in[(i+1)%count];
+       in[i]->twin = out[(i+1)%count];
+       out[i]->twin = in[(i-1+count)%count];
 
      }
 
 
    //add faces
    nface[0]->index = f->index;
-   this->faces[f->index] = nface[0];
+   cout << "ind" << f->index << "\n";
+   this->faces[nface[0]->index] = nface[0];
 
-   // add in
-   for (int i = 1; i < nface.size(); i++) {
+   for (int i = 1; i < nface.size(); i++)
+     {
      nface[i]->index = this->faces.size();
      this->faces.push_back(nface[i]);
-   }
+     }
 
-   delete f ;
-
-   for (int i = 1; i < in.size(); i++){
+   // add in and out
+   for (int i = 1; i < in.size(); i++)
+     {
      out[i]->index = this->halfedges.size();
      this->halfedges.push_back(out[i]);
 
      in[i]->index = this->halfedges.size();
      this->halfedges.push_back(in[i]);
    }
+
+   delete f ;
 
 }
 
@@ -396,6 +411,7 @@ bool myMesh::triangulate(myFace *f,int place)
 
       ed = ed->next;
     }
+
 
   out.push_back(f->adjacent_halfedge->prev);
 
@@ -444,20 +460,24 @@ bool myMesh::triangulate(myFace *f,int place)
   }
 
   // swap faces
-  this->faces[place] = fv[0];
+  fv[0]->index = f->index;
+  this->faces[f->index] = fv[0];
 
   // add faces
   for (int i = 1; i < fv.size(); i++) {
+    fv[i]->index = this->faces.size();
     this->faces.push_back(fv[i]);
   }
 
   // add in
   for (int i = 1; i < in.size(); i++) {
+    in[i]->index = this->halfedges.size();
     this->halfedges.push_back(in[i]);
   }
 
   // add out
   for (int i = 0; i < out.size()-1; i++) {
+    out[i]->index = this->halfedges.size();
     this->halfedges.push_back(out[i]);
   }
 
@@ -488,6 +508,7 @@ void myMesh::smoothenMesh(double dist)
 
 void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
 {
+
   auto v = new myVertex();
   v->point = p;
 
@@ -508,6 +529,7 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
   e_p->source = e->twin->source;
   e_p->adjacent_face = e->twin->adjacent_face;
 
+  e->source->originof = b_p;
   // TWIN
   p_b->twin = b_p;
   b_p->twin = p_b;
@@ -516,26 +538,25 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
   e_p->twin = p_e;
 
   // next and prev
+  e->next->prev = p_e;
   p_e->prev = b_p;
   b_p->prev = e->prev;
 
+  e->prev->next = b_p;
   b_p->next = p_e;
   p_e->next = e->next;
 
+  e->twin->next->prev = p_b;
   p_b->prev = e_p;
-  e_p->prev = e->twin->prev;
+  e_p->prev =e->twin->prev;
 
+  e->twin->prev->next = e_p;
   e_p->next = p_b;
   p_b->next = e->twin->next;
 
   //// after this point dont read e;
-  e->prev->next = b_p;
-  e->next->prev = p_e;
 
-  e->twin->prev->next = e_p;
-  e->twin->next->next = p_b;
-
-  v->originof = p_b;
+  v->originof = p_e;
 
   //indice
   //and check if e is
@@ -562,7 +583,14 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
   p_b->index = this->halfedges.size();
   this->halfedges.push_back(p_b);
 
+  v->index = this->vertices.size();
   this->vertices.push_back(v);
+
+  cout
+    <<"b_p " << b_p->index << " "
+    <<"p_e " << p_e->index << " "
+    <<"e_p " << e_p->index << " "
+    <<"p_b " << p_b->index << "\n";
 
   delete(e->twin);
   delete(e);
