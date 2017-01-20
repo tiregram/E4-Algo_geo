@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <utility>
 
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -14,6 +15,9 @@ void menu(int item);
 GLuint initshaders(GLenum type, const char *filename);
 GLuint initprogram(GLuint, GLuint);
 void display();
+
+
+std::pair<double,double> ligneClosest(const myPoint3D&  a, const myVector3D& u, const myPoint3D& b, const myVector3D& v);
 
 GLuint  shaderprogram;
 
@@ -415,6 +419,7 @@ void mouse(int button, int state, int x, int y)
             double bestDist = DBL_MAX;
             closest_vertex = NULL;
             cout << picking_ray->dX<<","<<picking_ray->dY<<","<<picking_ray->dZ <<  "\n";
+
             for(auto p : m->vertices)
               {
 
@@ -429,21 +434,52 @@ void mouse(int button, int state, int x, int y)
 
 
             /* //////////// hedge */
-            /* double bestDistedhe = DBL_MAX; */
+            double bestDistedhe = DBL_MAX;
 
-            /* for(auto p : m->halfedges) */
-            /*   { */
-            /*     myVector3D cu(); */
-            /*     myVector3D clt = picking_ray.crossproduct(); */
+            for(auto p : m->halfedges)
+                 {
 
-            /*     double curent_dist = */
-            /*     if(curent_dist < bestDistedhe) */
-            /*       { */
-            /*         cout<<"abs "<< curent_dist<<"\n"; */
-            /*         bestDistedhe = curent_dist; */
-            /*         closest_edge = p; */
-            /*       } */
-            /*   } */
+                   auto a = camera_eye;
+                   auto b = *p->source->point;
+                   auto u = *picking_ray;
+                   auto nb = p->next->source->point;
+                   auto v = myVector3D(nb->X-b.X,nb->Y-b.Y,nb->Z-b.Z);
+
+
+                   myPoint3D p1 ;
+                   myPoint3D p2 ;
+
+                     auto solu =  ligneClosest(a,u,b,v);
+                     if (solu.first < 0)
+                       {
+                         p1 = a;
+                       }
+                     else
+                       {
+                         p1 = a +  u * solu.first;
+                       }
+
+                     if (solu.second < 0)
+                       {
+                         p2 = b ;
+                       }
+                     else if (solu.second > 1)
+                       {
+                         p2 = b +  v*1;
+                       }
+                     else{
+                       p2 = b +  v*solu.second;
+                     }
+
+
+                     auto curent_dist = p2.dist(p1);
+                if(curent_dist < bestDistedhe)
+                  {
+                    cout<<"abs "<< curent_dist<<"\n";
+                    bestDistedhe = curent_dist;
+                    closest_edge = p;
+                  }
+              }
 
 
 
@@ -575,7 +611,11 @@ void keyboard(unsigned char key, int x, int y) {
 
   case 'n':
     menu(MENU_DRAWNORMALS);
+    break;
 
+  case 'w':
+  case 'v':
+      menu(MENU_DRAWWIREFRAME);
     break;
 
 
@@ -799,4 +839,36 @@ GLuint initprogram(GLuint vertexshader, GLuint fragmentshader)
 	}
 	return program;
 }
+
+std::pair<double,double> ligneClosest(const myPoint3D&  a, const myVector3D& u, const myPoint3D& b, const myVector3D& v)
+{
+  auto val = u * v;
+  if( val  == 1 or val  == -1  )
+    {
+      cout << "u*v:" << val << "\n";
+      //  throw "TODO";
+    }
+
+  if( !(1-0.01 < v.length() and v.length() < 1+0.01) or !(1-0.01 < u.length() and u.length() < 1+0.01) )
+    {
+      cout << (v.length()  != 1 )<<","<<  (u.length()  != 1) << " << "  << v.length() << " , " << u.length()<<"\n";
+      //throw "TODO 3";
+    }
+
+
+  auto ab = myVector3D(b.X - a.X, b.Y - a.Y, b.Z - a.Z );
+  //myVector3D tmp3 = u/(1+u*v) - (v-u) / ((1-v*u)*(1+v*u));
+
+  auto tmp = 1 - ( (v * u) * (u * v) );
+  auto tmp2 = ((-ab)*v) + ((ab*v)*(u*v));
+
+    if (tmp == 0) {
+      //      throw "TODO 2";
+    }
+    double tp = tmp2/tmp;
+    double t  = (ab*u) + (tp*(v*u));
+    
+    return std::make_pair(t,tp);
+}
+
 

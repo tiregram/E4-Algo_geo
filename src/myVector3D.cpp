@@ -11,7 +11,7 @@ myVector3D::myVector3D(double dx, double dy, double dz)
     dZ = dz;
 }
 
-double myVector3D::operator*(myVector3D & v1)
+double myVector3D::operator*(const myVector3D & v1) const
 {
     return (v1.dX*dX + v1.dY*dY + v1.dZ*dZ);
 }
@@ -21,7 +21,7 @@ double myVector3D::operator*(myVector3D & v1)
 // 	return myVector3D(dX+v1.dX, dY+v1.dY, dZ+v1.dZ);
 // }
 
-myVector3D myVector3D::operator+(myVector3D  v1)
+myVector3D myVector3D::operator+(const myVector3D  v1) const
 {
 	return myVector3D(dX+v1.dX, dY+v1.dY, dZ+v1.dZ);
 }
@@ -47,29 +47,30 @@ myVector3D myVector3D::operator-()
 	return myVector3D(-dX, -dY, -dZ);
 }
 
-myVector3D myVector3D::operator-(myVector3D & v1)
+myVector3D myVector3D::operator-(const myVector3D & v1) const
 {
 	return myVector3D(dX-v1.dX, dY-v1.dY, dZ-v1.dZ);
 }
 
-myVector3D myVector3D::operator*(double s)
+myVector3D myVector3D::operator*(double s) const
 {
 	return myVector3D(dX*s, dY*s, dZ*s);
 }
 
-myVector3D myVector3D::operator/(double s)
+myVector3D myVector3D::operator/(double s) const
 {
 	return myVector3D(dX/s, dY/s, dZ/s);
 }
 
-void myVector3D::crossproduct(myVector3D & v1, myVector3D & v2)
+void myVector3D::crossproduct(const myVector3D & v1, const myVector3D & v2)
 {
 	dX = v1.dY * v2.dZ - v1.dZ * v2.dY;
 	dY = v1.dZ * v2.dX - v1.dX * v2.dZ;
 	dZ = v1.dX * v2.dY - v1.dY * v2.dX;
 }
 
-myVector3D myVector3D::crossproduct(myVector3D & v1)
+
+myVector3D myVector3D::crossproduct(const myVector3D & v1) const
 {
 	myVector3D result;
 	result.crossproduct(*this, v1);
@@ -85,7 +86,7 @@ void myVector3D::setNormal(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3)
 	normalize();
 }
 
-double myVector3D::length( )
+double myVector3D::length( ) const
 {
     return sqrt( dX*dX + dY*dY + dZ*dZ ); 
 }

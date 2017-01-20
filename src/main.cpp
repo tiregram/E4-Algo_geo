@@ -653,6 +653,22 @@ void initMesh()
 
 int main(int argc, char* argv[])
 {
+  auto a = myPoint3D(0,0,0);
+  auto b = myPoint3D(0,1,1);
+  auto u = myVector3D(1,0,0);
+  u.normalize();
+  auto v = myVector3D(0,1,0);
+  v.normalize();
+
+  
+
+try {
+  ligneClosest(a,u,b,v);
+ } catch (char const * err  ) {
+  cout << err  << "\n";
+ }
+
+
 	initInterface(argc, argv);
 
 	initMesh();
