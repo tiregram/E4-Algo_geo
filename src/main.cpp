@@ -21,7 +21,7 @@ using namespace std;
 enum MENU { MENU_CATMULLCLARK, MENU_DRAWWIREFRAME, MENU_EXIT, MENU_DRAWMESH, MENU_LOOP, MENU_DRAWMESHVERTICES,
             MENU_CONTRACTEDGE, MENU_CONTRACTFACE, MENU_DRAWCREASE, MENU_DRAWSILHOUETTE,
             MENU_GENERATE, MENU_CUT, MENU_INFLATE, MENU_SELECTEDGE, MENU_SELECTFACE, MENU_SELECTVERTEX,
-            MENU_SHADINGTYPE, MENU_SMOOTHEN, MENU_SPLITEDGE, MENU_SPLITFACE, MENU_SELECTCLEAR,
+            MENU_SHADINGTYPE, MENU_SMOOTHEN, MENU_SPLITEDGE, MENU_SPLITFACE,MENU_SPLITFACE4, MENU_SELECTCLEAR,
             MENU_TRIANGULATE, MENU_UNDO, MENU_WRITE, MENU_SIMPLIFY, MENU_DRAWNORMALS, MENU_OPENFILE,MENU_CHECK
 };
 
@@ -181,7 +181,27 @@ void menu(int item)
 			// makeBuffers(m);
 			break;
 		}
-	case MENU_OPENFILE:
+
+	case MENU_SPLITFACE4:
+		{
+
+      if (closest_vertex != NULL){
+
+        m->splitFaceQUADS(m->faces[0], new myPoint3D(0,0,0) );
+        m->checkMesh();
+        m->computeNormals();
+        makeBuffers(m);
+      }
+
+      // if (pickedpoint != NULL && closest_face != NULL)
+			// 	m->splitFaceTRIS(closest_face, pickedpoint);
+			// clear();		
+			// m->computeNormals();
+			// makeBuffers(m);
+			break;
+    }
+
+  case MENU_OPENFILE:
 	    {
 			nfdchar_t *outPath = NULL;
 			nfdresult_t result = NFD_OpenDialog("obj", NULL, &outPath);
@@ -189,6 +209,10 @@ void menu(int item)
 			m->readFile(outPath);
 			m->computeNormals();
 			makeBuffers(m);
+      closest_face = nullptr;
+      closest_edge = nullptr;
+      closest_vertex = nullptr;
+
 			break;
 	    }
 	case MENU_EXIT:
@@ -653,21 +677,42 @@ void initMesh()
 
 int main(int argc, char* argv[])
 {
-  auto a = myPoint3D(0,0,0);
-  auto b = myPoint3D(0,1,1);
-  auto u = myVector3D(1,0,0);
-  u.normalize();
-  auto v = myVector3D(0,1,0);
-  v.normalize();
+//   auto a = myPoint3D(0,0,0);
+//   auto b = myPoint3D(0,1,1);
+//   auto u = myVector3D(1,0,0);
+//   u.normalize();
+//   auto v = myVector3D(0,1,0);
+//   v.normalize();
 
-  
+// try {
+//   ligneClosest(a,u,b,v);
+//  } catch (char const * err  ) {
+//   cout << err  << "\n";
+//  }
 
-try {
-  ligneClosest(a,u,b,v);
- } catch (char const * err  ) {
-  cout << err  << "\n";
- }
+auto f = new double[3][3];
+ double d[3] = {1,2,3};
+ double d1[3] = {4,5,6};
+ double d2[3] = {7,8,9};
+ auto p = myVector3D(1,2,3);
+ set_c_of_matrix(f,0,d);
+ set_c_of_matrix(f,1,d1);
+ set_c_of_matrix(f,2,d2);
+ print_matrix(f);
 
+ auto result = f * p;
+ cout << result[0]<<","<<result[1]<<","<<result[2] << "\n";
+
+//  f[0][0] = 3;
+//  f[1][1] = 3;
+//  f[2][2] = 3;
+//  for (int i = 0; i < 3; i++) {
+//    for (int j = 0; j < 3; j++) {
+//      cout<< f[i][j] <<",";
+//    }
+//    cout<<"\n";
+//  }
+//  TYPE3x3 va = solve(f);
 
 	initInterface(argc, argv);
 

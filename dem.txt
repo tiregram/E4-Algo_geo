@@ -33,8 +33,7 @@ sys
 ab*v + T - ab*v*u*v - T*v*u*u*v = 0
 
 T - T*(v*u.u*v) = -ab*v + ab*v.u*v
-T - T*(v*u.u*v) = -ab*v + ab*v.u*v
-T = (-ab*v + ab*v.u*v)/(1-(v*u.u*v))
+
 
 
 

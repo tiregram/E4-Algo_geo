@@ -1,4 +1,5 @@
 #pragma once
+
 #include "myFace.h"
 #include "myHalfedge.h"
 #include "myVertex.h"
@@ -22,7 +23,7 @@ class myMesh
   void inflateMesh(double dist);
   void smoothenMesh(double dist);
   void splitFace(myFace *f, myPoint3D *p);
-  
+
   void subdivisionCatmullClark();
 
 	void splitFaceTRIS(myFace *, myPoint3D *);
@@ -33,6 +34,7 @@ class myMesh
 	void triangulate();
 	bool triangulate(myFace *,int place);
 
+  
 	void clear();
 
 	myMesh(void);

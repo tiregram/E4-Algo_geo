@@ -280,14 +280,81 @@ void myMesh::splitFaceTRIS(myFace *f, myPoint3D *p)
 
 void myMesh::splitFaceQUADS(myFace *f, myPoint3D *p)
 {
-	/**** TODO ****/
-}
 
 
-void myMesh::subdivisionCatmullClark()
-{
-	/**** TODO ****/
+   std::vector<myHalfedge*> ex;
+   std::vector<myFace*> nface;
+   std::vector<myHalfedge*> in;
+   std::vector<myHalfedge*> out;
+   myHalfedge* e = f->adjacent_halfedge;
+
+   myVertex* nv = new myVertex();
+   nv->point = p;
+
+   do
+     {
+       nface.push_back(new myFace());
+       out.push_back(new myHalfedge());
+       in.push_back(new myHalfedge());
+       ex.push_back(e);
+       e = e->next->next;
+     }
+   while(e != f->adjacent_halfedge and e != f->adjacent_halfedge->next);
+
+   int count = ex.size();
+      nv->originof = in[0];
+
+   for (int i = 0; i < count; i++)
+     {
+       out[i]->adjacent_face = nface[i];
+       in[i]->adjacent_face  = nface[i];
+       ex[i]->adjacent_face  = nface[i];
+       ex[i]->next->adjacent_face  = nface[i];
+
+
+       out[i]->next = ex[i];
+       ex[i]->next->next  = in[i];
+       in[i]->next  = out[i];
+
+       out[i]->prev = in[i];
+       in[i]->prev  = ex[i]->next;
+       ex[i]->prev  = out[i];
+
+       nface[i]->adjacent_halfedge = in[i];
+
+       out[i]->source = nv;
+       in[i]->source  = ex[i]->next->twin->source;
+
+       // twin
+       in[i]->twin = out[(i+1)%count];
+       out[i]->twin = in[(i-1+count)%count];
+
+     }
+
+
+   //add faces
+   nface[0]->index = f->index;
+      this->faces[nface[0]->index] = nface[0];
+
+   for (int i = 1; i < nface.size(); i++)
+     {
+     nface[i]->index = this->faces.size();
+     this->faces.push_back(nface[i]);
+     }
+
+   // add in and out
+   for (int i = 1; i < in.size(); i++)
+     {
+     out[i]->index = this->halfedges.size();
+     this->halfedges.push_back(out[i]);
+
+     in[i]->index = this->halfedges.size();
+     this->halfedges.push_back(in[i]);
+   }
+
+   delete f ;
 }
+
 
 
 void myMesh::triangulate()
@@ -586,5 +653,96 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
 
   delete(e->twin);
   delete(e);
+
+}
+
+
+void myMesh::subdivisionCatmullClark()
+{
+  ////
+  // centroid
+  ///
+  std::vector<myPoint3D*> centroid = std::vector<myPoint3D*>(this->faces.size());
+
+  int size =  this->faces.size();
+
+  for(int i = 0; i < size; i++ )
+    {
+      auto faceCentroid = new myPoint3D(0,0,0);
+
+      auto f = this->faces[i]->adjacent_halfedge;
+      auto itef = this->faces[i]->adjacent_halfedge;
+      cout << "face"<< this->faces[i]->index << "\n";
+      int count = 0;
+      do
+        {
+          *faceCentroid += *itef->source->point;
+          count++;
+          itef = itef->next;
+        }while( itef != f);
+      cout << "face"<< this->faces[i]->index <<"c"<<count<< "\n";
+      *faceCentroid = *faceCentroid/count;
+      centroid[i] = faceCentroid;
+      //splitFace(this->faces[i],faceCentroid);
+    }
+
+
+  ////
+  // hedge
+  ////
+  if( this->halfedges.size() % 2 == 1 ){exit(2);}
+
+  int nbHalfedges = this->halfedges.size() / 2;
+  std::map<std::pair<int,int>, myPoint3D*> mapii = std::map<std::pair<int,int>, myPoint3D*>();
+
+  for (auto i : this->halfedges)
+    {
+      int min = std::min(i->index, i->twin->index);
+      int max = std::max(i->index, i->twin->index);
+      auto pair = std::make_pair(min,max);
+      auto result = mapii.find(pair);
+
+      //deja fais
+      if(result != mapii.end())
+        {
+          continue;
+        }
+
+
+      mapii[pair] = new myPoint3D((*centroid[i->adjacent_face->index]
+                     + *centroid[i->twin->adjacent_face->index]
+                     + *i->source->point
+                               + *i->twin->source->point)/4);
+
+    }
+
+
+  for(int i = 0 ; i < this->vertices.size(); i++)
+    {
+      // compute N
+      auto q = myPoint3D(0,0,0);
+      auto r = myPoint3D(0,0,0);
+
+      auto f = this->faces[i]->adjacent_halfedge;
+      auto itef = this->faces[i]->adjacent_halfedge;
+      int n = 0;
+      do{
+        q +=  itef->;
+        r +=  itef->;
+
+        n++;
+        itef = itef->next;
+
+        }while( itef != f);
+
+      // compute Q
+
+
+      // compute R
+
+      // compute V
+
+      //      this->vertices[i] = (1/n) * Q + (2/n) * R + (n-3)/n * v;
+    }
 
 }

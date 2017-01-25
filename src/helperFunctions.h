@@ -10,6 +10,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+typedef double (*TYPE3x3)[3];
+
+TYPE3x3 solve_matrix(double s[3][3]);
 
 void menu(int item);
 GLuint initshaders(GLenum type, const char *filename);
@@ -59,6 +62,34 @@ bool drawsilhouette = false;
 bool drawnormals = false;
 
 
+double*  operator*(TYPE3x3 m , const myVector3D& l)
+{
+  auto ret = new double[3];
+
+  for (int i = 0; i < 3; i++) {
+    ret[i] = m[i][0] * l.components[0] + m[i][1] * l.components[1] + m[i][2] * l.components[2];
+  }
+
+  return ret;
+}
+
+
+void set_c_of_matrix(TYPE3x3 m , int c, double* l)
+{
+  for (int i = 0; i < 3; i++) {
+    m[c][i] = l[i];
+  }
+}
+
+void print_matrix(TYPE3x3 f )
+{
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      cout<< f[j][i] <<", ";
+    }
+    cout<<"\n";
+  }
+}
 
 
 void makeBuffers(myMesh *input_mesh)
@@ -426,7 +457,7 @@ void mouse(int button, int state, int x, int y)
                 double curent_dist = abs(p->point->dist(&camera_eye, picking_ray ));
                 if(curent_dist < bestDist)
                   {
-                    cout<<"abs "<< curent_dist<<"\n";
+                    //                    cout<<"abs "<< curent_dist<<"\n";
                     bestDist = curent_dist;
                     closest_vertex = p;
                   }
@@ -475,15 +506,77 @@ void mouse(int button, int state, int x, int y)
                      auto curent_dist = p2.dist(p1);
                 if(curent_dist < bestDistedhe)
                   {
-                    cout<<"abs "<< curent_dist<<"\n";
+                    //                    cout<<"abs "<< curent_dist<<"\n";
                     bestDistedhe = curent_dist;
                     closest_edge = p;
                   }
               }
 
+            /*////////////////////// face*/
+
+              // solving matrix is simple
+
+            double best_dist = DBL_MAX; // if no colition
+            double best_t = DBL_MAX;    // if colition because best_dist == 0
+
+            auto matrice_to_solve = new double[3][3];
+            double c0[3] = {picking_ray->dX, picking_ray->dY, picking_ray->dZ};
+
+            set_c_of_matrix(matrice_to_solve,0,c0);
+
+            for (auto f : m->faces) {
+              myPoint3D* a = f->adjacent_halfedge->source->point;
+              myPoint3D* b = f->adjacent_halfedge->next->source->point;
+              myPoint3D* c = f->adjacent_halfedge->next->next->source->point;
+
+              auto c1 = *a-*c;
+              auto c2 = *b-*c;
+              auto solu = camera_eye - *c;
+
+              set_c_of_matrix(matrice_to_solve,1,c1.components);
+              set_c_of_matrix(matrice_to_solve,2,c2.components);
+
+              auto reverse = solve_matrix(matrice_to_solve);
+
+              auto aplication = reverse * solu;
+
+              auto t  = - aplication[0]; 
+              auto alpha = aplication[1];
+              auto beta  = aplication[2];
+              auto gama  = 1-alpha-beta;
 
 
+              if(alpha+beta+gama == 1)
+                {
 
+                  auto d = myPoint3D(a->X * alpha  + b->X * beta  + c->X * gama,
+                                     a->Y * alpha  + b->Y * beta  + c->Y * gama,
+                                     a->Z * alpha  + b->Z * beta  + c->Z * gama
+                                     ) ;
+
+                  cout<<"touch face: "<< f->index << "in " <<d.X<<","<<d.Y<<","<<d.Z<< " at "<< t <<' ';
+
+                  auto dis = d.dist(camera_eye);
+                  cout <<" dist:"<< dis<< " ";
+                  if( t > 0  and t < best_t)
+                    {
+                      best_t = t;
+                      closest_face = f;
+                      cout<<aplication[0]<<","<<aplication[1]<<","<<aplication[2]<<"\n";
+                    }
+                  else
+                    {
+                      //cout<<"no"<<"\n";
+                    }
+                }
+              else
+                {
+                  cout<<"no on face \n";
+                  }
+              cout<<"\n";
+
+
+            }
           }
         if (mode == GLUT_ACTIVE_SHIFT) {
         }
@@ -623,6 +716,10 @@ void keyboard(unsigned char key, int x, int y) {
     menu(MENU_CHECK);
     break;
 
+  case 'C':
+    menu(MENU_CATMULLCLARK);
+    break;
+
     break;
   case 't':
     menu(MENU_TRIANGULATE);
@@ -642,6 +739,10 @@ void keyboard(unsigned char key, int x, int y) {
 
   case 'F':
     menu(MENU_SPLITFACE);
+    break;
+
+  case 'R':
+    menu(MENU_SPLITFACE4);
     break;
 
   case 'E':
@@ -845,7 +946,7 @@ std::pair<double,double> ligneClosest(const myPoint3D&  a, const myVector3D& u, 
   auto val = u * v;
   if( val  == 1 or val  == -1  )
     {
-      cout << "u*v:" << val << "\n";
+      //cout << "u*v:" << val << "\n";
       //  throw "TODO";
     }
 
@@ -867,8 +968,41 @@ std::pair<double,double> ligneClosest(const myPoint3D&  a, const myVector3D& u, 
     }
     double tp = tmp2/tmp;
     double t  = (ab*u) + (tp*(v*u));
-    
+
     return std::make_pair(t,tp);
 }
 
+/* 00->11,22,21,12; */
+/* 11->00,22,20,02; */
+/* 22->00,11,01,10; */
+/* 10->01,22,02,20; */
 
+const int fp[3] = {1,0,0};
+const int lp[3] = {2,2,1};
+
+
+
+double get_det_of_matrix(double s[3][3])
+{
+  double d;
+  for (int j = 0; j < 3; j++) {
+    double val = s[fp[0]][fp[j]] * s[lp[0]][lp[j]] - s[fp[0]][lp[j]] * s[lp[0]][fp[j]];
+    d += val * s[0][j] ;
+  }
+
+  return d;
+}
+
+TYPE3x3 solve_matrix(double s[3][3])
+{
+  const int N =3;
+  auto ret = new double[3][3]();
+  double det =get_det_of_matrix(s);
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < N; j++) {
+      ret[i][j] = (s[fp[i]][fp[j]] * s[lp[i]][lp[j]] - s[fp[i]][lp[j]] * s[lp[i]][fp[j]])/det;
+    }
+  }
+
+  return ret;
+}

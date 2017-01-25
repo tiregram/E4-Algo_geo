@@ -1,7 +1,6 @@
-#include <math.h>
+#pragma once
 
-#ifndef __INCLUDEPOINT3D
-#define __INCLUDEPOINT3D 
+#include <math.h>
 
 class myVector3D;
 
@@ -40,6 +39,5 @@ public:
   void circumcenter(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3, myPoint3D *p4);
 };
 
-#endif
 
 

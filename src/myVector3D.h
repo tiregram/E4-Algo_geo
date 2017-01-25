@@ -1,7 +1,6 @@
-#include <math.h>
+#pragma once
 
-#ifndef __INCLUDEVECTOR3D
-#define __INCLUDEVECTOR3D 
+#include <math.h>
 
 class myPoint3D;
 
@@ -38,4 +37,3 @@ public:
   void print(char *s);
 };
 
-#endif
