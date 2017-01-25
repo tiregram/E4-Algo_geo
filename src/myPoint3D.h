@@ -18,6 +18,7 @@ public:
   myPoint3D();
 
   myPoint3D(double x, double y, double z);
+  myPoint3D(const myPoint3D & p);
   double dist(myPoint3D p1);
   myPoint3D operator+(const myVector3D & v1);
   myPoint3D operator+(const myPoint3D & v1);

@@ -48,15 +48,50 @@ void myMesh::clear()
 void myMesh::checkMesh()
 {
 
+
 	bool error;
 	unsigned int count;
-
 	cout << "Checking mesh for errors...\n";
 	cout << "\tNumber of vertices: " << vertices.size() << endl;
 	cout << "\tNumber of halfedges: " << halfedges.size() << endl;
 	cout << "\tNumber of faces: " << faces.size() << endl << endl;
 
 	cout << "\tChecking for NULL vertices. " << endl;
+
+
+  for (int i = 0; i < this->vertices.size(); i++) {
+    if (this->vertices[i]->index != i)
+      {
+        cout << "ERREUR indice vertice "<< i <<" is "<< this->vertices[i]->index << "\n";
+      }
+  }
+
+  for (int i = 0; i < this->faces.size(); i++) {
+    if (this->faces[i]->index != i)
+      {
+        cout << "ERREUR faces " << i <<" is "<< this->faces[i]->index << "\n";
+      }
+  }
+
+
+  for (int i = 0; i < this->halfedges.size(); i++) {
+    if (this->halfedges[i]->index != i)
+      {
+        cout << "ERREUR edje " << i <<" is "<< this->halfedges[i]->index << "\n";
+      }
+
+    if (this->halfedges[i]->twin->twin != this->halfedges[i])
+      {
+        cout << "Twin erreur " << i <<" is "<< this->halfedges[i]->index << "\n";
+      }
+
+    if (this->halfedges[this->halfedges[i]->twin->index] != this->halfedges[i]->twin)
+      {
+        cout << "Twin erreur are delete " << i <<" is "<< this->halfedges[i]->index << "\n";
+      }
+  }
+
+
 	for (unsigned int i = 0;i < vertices.size();i++)
 	{
 		if (vertices[i] == NULL)
@@ -203,16 +238,13 @@ bool myMesh::readFile(std::string filename)
           continue;
 
         oneHalfEdje.second->twin = elem->second;
-        // cout << "(" << oneHalfEdje.first.first <<","<< oneHalfEdje.first.second << ")"
-        //      << oneHalfEdje.second << " link to "
-        //      << "(" << elem->first.first <<","<< elem->first.second << ")"
-        //      <<elem->second << "\n";
+
       }
 	}
 
 
-	checkMesh();
-	normalize();
+	this->checkMesh();
+	this->normalize();
 
 	return true;
 }
@@ -302,7 +334,7 @@ void myMesh::splitFaceQUADS(myFace *f, myPoint3D *p)
    while(e != f->adjacent_halfedge and e != f->adjacent_halfedge->next);
 
    int count = ex.size();
-      nv->originof = in[0];
+      nv->originof = out[0];
 
    for (int i = 0; i < count; i++)
      {
@@ -320,7 +352,7 @@ void myMesh::splitFaceQUADS(myFace *f, myPoint3D *p)
        in[i]->prev  = ex[i]->next;
        ex[i]->prev  = out[i];
 
-       nface[i]->adjacent_halfedge = in[i];
+       nface[i]->adjacent_halfedge = out[i];
 
        out[i]->source = nv;
        in[i]->source  = ex[i]->next->twin->source;
@@ -343,7 +375,7 @@ void myMesh::splitFaceQUADS(myFace *f, myPoint3D *p)
      }
 
    // add in and out
-   for (int i = 1; i < in.size(); i++)
+   for (int i = 0; i < in.size(); i++)
      {
      out[i]->index = this->halfedges.size();
      this->halfedges.push_back(out[i]);
@@ -352,7 +384,10 @@ void myMesh::splitFaceQUADS(myFace *f, myPoint3D *p)
      this->halfedges.push_back(in[i]);
    }
 
-   delete f ;
+  nv->index =  this->vertices.size();
+  this->vertices.push_back(nv);
+
+  delete f ;
 }
 
 
@@ -392,7 +427,7 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
           }
    while(e != f->adjacent_halfedge);
    int count = ex.size();
-      nv->originof = in[0];
+      nv->originof = out[0];
 
    for (int i = 0; i < count; i++)
      {
@@ -408,7 +443,7 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
        in[i]->prev  = ex[i];
        ex[i]->prev  = out[i];
 
-       nface[i]->adjacent_halfedge = in[i];
+       nface[i]->adjacent_halfedge = out[i];
 
        out[i]->source = nv;
        in[i]->source  = ex[i]->twin->source;
@@ -430,8 +465,11 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
      this->faces.push_back(nface[i]);
      }
 
+
+
+
    // add in and out
-   for (int i = 1; i < in.size(); i++)
+   for (int i = 0; i < in.size(); i++)
      {
      out[i]->index = this->halfedges.size();
      this->halfedges.push_back(out[i]);
@@ -439,6 +477,10 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
      in[i]->index = this->halfedges.size();
      this->halfedges.push_back(in[i]);
    }
+
+   nv->index =  this->vertices.size();
+   this->vertices.push_back(nv);
+
 
    delete f ;
 
@@ -632,7 +674,7 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
 
   if(e->twin == e->twin->adjacent_face->adjacent_halfedge)
     {
-      e->twin->adjacent_face->adjacent_halfedge = p_e;
+      e->twin->adjacent_face->adjacent_halfedge = e_p;
     }
 
 
@@ -653,12 +695,18 @@ void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
 
   delete(e->twin);
   delete(e);
-
 }
 
 
 void myMesh::subdivisionCatmullClark()
 {
+
+
+
+
+
+  cout <<"start"  << "\n";
+  this->checkMesh();
   ////
   // centroid
   ///
@@ -672,7 +720,7 @@ void myMesh::subdivisionCatmullClark()
 
       auto f = this->faces[i]->adjacent_halfedge;
       auto itef = this->faces[i]->adjacent_halfedge;
-      cout << "face"<< this->faces[i]->index << "\n";
+
       int count = 0;
       do
         {
@@ -680,17 +728,23 @@ void myMesh::subdivisionCatmullClark()
           count++;
           itef = itef->next;
         }while( itef != f);
-      cout << "face"<< this->faces[i]->index <<"c"<<count<< "\n";
+
       *faceCentroid = *faceCentroid/count;
       centroid[i] = faceCentroid;
+      //      cout<<"face at "<< i << " is "<< this->faces[i] << " with " << this->faces[i]->index<<"\n ";
+      //      cout << "point:"<<count<<"  p"<<faceCentroid->X<<","<<faceCentroid->Y<<","<<faceCentroid->Z << "\n";
       //splitFace(this->faces[i],faceCentroid);
+
     }
 
 
   ////
   // hedge
   ////
-  if( this->halfedges.size() % 2 == 1 ){exit(2);}
+
+  if( this->halfedges.size() % 2 != 0)
+    {cout<<"error"<<std::endl;
+      exit(2);}
 
   int nbHalfedges = this->halfedges.size() / 2;
   std::map<std::pair<int,int>, myPoint3D*> mapii = std::map<std::pair<int,int>, myPoint3D*>();
@@ -709,13 +763,19 @@ void myMesh::subdivisionCatmullClark()
         }
 
 
-      mapii[pair] = new myPoint3D((*centroid[i->adjacent_face->index]
-                     + *centroid[i->twin->adjacent_face->index]
-                     + *i->source->point
-                               + *i->twin->source->point)/4);
+
+      mapii[pair] = new myPoint3D((  *centroid[i->adjacent_face->index]
+                                   + *centroid[i->twin->adjacent_face->index]
+                                   + *i->source->point
+                                   + *i->twin->source->point) / 4);
+
+      //      cout <<"edje "<< mapii[pair]->X <<","<< mapii[pair]->Y <<","<< mapii[pair]->Z << "\n";
 
     }
 
+
+  /// vertices compute
+  auto newVerticePosition = std::vector<myPoint3D*>(this->vertices.size());
 
   for(int i = 0 ; i < this->vertices.size(); i++)
     {
@@ -723,26 +783,55 @@ void myMesh::subdivisionCatmullClark()
       auto q = myPoint3D(0,0,0);
       auto r = myPoint3D(0,0,0);
 
-      auto f = this->faces[i]->adjacent_halfedge;
-      auto itef = this->faces[i]->adjacent_halfedge;
+      myHalfedge* f    = this->vertices[i]->originof;
+      myHalfedge* itef = this->vertices[i]->originof;
       int n = 0;
+
       do{
-        q +=  itef->;
-        r +=  itef->;
+        r += (*itef->source->point + *itef->twin->source->point) /2;
+
+        q += *centroid[itef->twin->adjacent_face->index] ;
 
         n++;
-        itef = itef->next;
+
+        itef = itef->twin->next;
 
         }while( itef != f);
 
       // compute Q
-
+      // cout << "n = "<< n << "\n";
+      q = q/n;
 
       // compute R
+      r = r/n;
 
-      // compute V
+      // compute
+      myPoint3D vv =  (q  +  r * 2  +  *(this->vertices[i]->point) * (n-3))/n;
 
-      //      this->vertices[i] = (1/n) * Q + (2/n) * R + (n-3)/n * v;
+      newVerticePosition[i] = new myPoint3D(vv);
+    }
+
+   // apply position
+   for(int i = 0 ; i < this->vertices.size(); i++)
+     {
+
+       delete this->vertices[i]->point ;
+       this->vertices[i]->point = newVerticePosition[i];
+       //cout << this->vertices[i]->point->X << this->vertices[i]->point->Y <<this->vertices[i]->point->Z << "\n";
+     }
+
+
+  // split
+  for(auto splitedge: mapii)
+    {
+      this->splitEdge(this->halfedges[splitedge.first.second],splitedge.second);
+    }
+
+  for(int i = 0; i < centroid.size(); i++)
+    {
+      // cout << "face at "<< i << " is "<< this->faces[i] << " with " << this->faces[i]->index<<"\n ";
+      this->faces[i]->adjacent_halfedge = this->faces[i]->adjacent_halfedge->next;
+      this->splitFaceQUADS(this->faces[i], centroid[i]);
     }
 
 }

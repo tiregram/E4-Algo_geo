@@ -139,7 +139,8 @@ void menu(int item)
 	case MENU_CATMULLCLARK:
 		{
 			m->subdivisionCatmullClark();
-			clear();
+      m->checkMesh();
+      clear();
 			m->computeNormals();
 			makeBuffers(m);
 			break;
@@ -176,7 +177,7 @@ void menu(int item)
 
       // if (pickedpoint != NULL && closest_face != NULL)
 			// 	m->splitFaceTRIS(closest_face, pickedpoint);
-			// clear();		
+			// clear();
 			// m->computeNormals();
 			// makeBuffers(m);
 			break;
@@ -195,7 +196,7 @@ void menu(int item)
 
       // if (pickedpoint != NULL && closest_face != NULL)
 			// 	m->splitFaceTRIS(closest_face, pickedpoint);
-			// clear();		
+			// clear();
 			// m->computeNormals();
 			// makeBuffers(m);
 			break;
@@ -223,7 +224,7 @@ void menu(int item)
 			exit(0);
 			break;
 		}
-    
+
   case MENU_CHECK:
 		{
       m->checkMesh();
@@ -428,7 +429,7 @@ void display()
 		glEnd();
 		glUseProgram(shaderprogram);
 	}
-	
+
 	if (closest_vertex != NULL)
 	{
 		glUseProgram(0);
@@ -439,7 +440,7 @@ void display()
 		glEnd();
 		glUseProgram(shaderprogram);
 	}
-	
+
 	if (closest_face != NULL)
 	{
 		glUseProgram(0);

@@ -8,6 +8,11 @@ myPoint3D::myPoint3D()
 	X = Y = Z = 0.0;
 }
 
+myPoint3D::myPoint3D(const myPoint3D& p):X(p.X),Y(p.Y),Z(p.Z)
+{
+	
+}
+
 myPoint3D::myPoint3D(double x, double y, double z)
 {
 	X = x;
