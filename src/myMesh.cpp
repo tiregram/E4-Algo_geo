@@ -30,7 +30,8 @@ myMesh::myMesh(void)
 
 myMesh::~myMesh(void)
 {
-	/**** TODO ****/
+
+  this->clear();
 }
 
 void myMesh::clear()
@@ -45,9 +46,9 @@ void myMesh::clear()
 }
 
 
+
 void myMesh::checkMesh()
 {
-
 
 	bool error;
 	unsigned int count;
@@ -58,11 +59,12 @@ void myMesh::checkMesh()
 
 	cout << "\tChecking for NULL vertices. " << endl;
 
-
+  // test add by and for myself
   for (int i = 0; i < this->vertices.size(); i++) {
     if (this->vertices[i]->index != i)
       {
-        cout << "ERREUR indice vertice "<< i <<" is "<< this->vertices[i]->index << "\n";
+        // never be ok because of teacher make buffer
+        // cout << "ERREUR indice vertice "<< i <<" is "<< this->vertices[i]->index << "\n";
       }
   }
 
@@ -73,7 +75,6 @@ void myMesh::checkMesh()
       }
   }
 
-
   for (int i = 0; i < this->halfedges.size(); i++) {
     if (this->halfedges[i]->index != i)
       {
@@ -82,12 +83,12 @@ void myMesh::checkMesh()
 
     if (this->halfedges[i]->twin->twin != this->halfedges[i])
       {
-        cout << "Twin erreur " << i <<" is "<< this->halfedges[i]->index << "\n";
+        cout << "Twin of twin is not me at " << i <<" as "<< this->halfedges[i] << "\n";
       }
 
     if (this->halfedges[this->halfedges[i]->twin->index] != this->halfedges[i]->twin)
       {
-        cout << "Twin erreur are delete " << i <<" is "<< this->halfedges[i]->index << "\n";
+        cout << "erreur: Twin  are delete " << i <<" is "<< this->halfedges[i]->index << "\n";
       }
   }
 
@@ -426,6 +427,7 @@ void myMesh::splitFace(myFace *f, myPoint3D *p)
        e = e->next;
           }
    while(e != f->adjacent_halfedge);
+
    int count = ex.size();
       nv->originof = out[0];
 
