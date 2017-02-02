@@ -131,8 +131,6 @@ void menu(int item)
       m->computeNormals();
       makeBuffers(m);
 
-      //      for (vector<myVertex *>::iterator it = m->vertices.begin(); it != m->vertices.end(); it++)
-			//	*((*it)->point) = *((*it)->point) + *((*it)->normal)*0.01;
 			break;
 
 	}
@@ -235,6 +233,7 @@ void menu(int item)
 
 	glutPostRedisplay();
 }
+
 
 
 
@@ -659,6 +658,7 @@ void display()
 
 // 	glFlush();
 // }
+
 
 
 void initMesh()
