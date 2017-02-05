@@ -1,5 +1,5 @@
-#include "myPoint3D.h"
-#include "myVector3D.h"
+#include "myPoint3D.hpp"
+#include "myVector3D.hpp"
 #include <iostream>
 #include <algorithm>
 
@@ -20,7 +20,7 @@ myPoint3D::myPoint3D(double x, double y, double z)
 	Z = z;
 }
 
-myPoint3D myPoint3D::operator+(const myVector3D & v1)
+myPoint3D myPoint3D::operator+(const myVector3D & v1) const
 {
 	return myPoint3D(X + v1.dX, Y + v1.dY, Z + v1.dZ);
 }
@@ -36,7 +36,7 @@ double myPoint3D::dist(myPoint3D *p1, myVector3D *v2)
 }
 
 
-myPoint3D myPoint3D::operator+(const myPoint3D & v1)
+myPoint3D myPoint3D::operator+(const myPoint3D & v1) const
 {
 	return myPoint3D(X + v1.X, Y + v1.Y, Z + v1.Z);
 }
@@ -208,4 +208,48 @@ void myPoint3D::circumcenter(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3, myPoin
 	X = xcirca + p1->X;
 	Y = ycirca + p1->Y;
 	Z = zcirca + p1->Z;
+}
+
+
+double myPoint3D::dist(const myPoint3D& p1, const myPoint3D& p2)
+{
+
+}
+
+double myPoint3D::dist(const myPoint3D& p1, const myVector3D& v2)
+{
+  myVector3D cu_p1 =  myVector3D(this->X - p1.X,this->Y - p1.Y, this->Z - p1.Z);
+  double p = v2 * cu_p1 ;
+
+  myPoint3D po = p1 + v2 * p;
+
+  return this->dist(po);
+
+}
+
+double myPoint3D::dist(const myPoint3D& p1, const myPoint3D& p2, const myPoint3D& p3)
+{
+	auto vectp1_cu = myVector3D(this->X - p1.X, this->Y - p1.Y, this->Z - p1.Z);
+	auto vectp1_p2 = myVector3D(p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
+	auto vectp1_p3 = myVector3D(p3.X - p1.X, p3.Y - p1.Y, p3.Z - p1.Z);
+ 
+	auto projOnP1_p2 = (vectp1_p2 * vectp1_cu) / vectp1_p2.length();
+	auto projOnP1_p3 = (vectp1_p3 * vectp1_cu) / vectp1_p3.length();
+
+	auto q = myPoint3D(p1 + vectp1_p2 * projOnP1_p2 + vectp1_p3 * projOnP1_p2);
+
+	double a = 1;
+	double b = 1;
+	double c = 1;
+
+	bool isInside = a  >= 0 && b >= 0 && c >= 0 && a  <= 1 && b <= 1 && c <= 1;
+
+	if (isInside){
+    return this->dist(q);
+	}
+	else {
+		return std::min(this->dist(p1,p2), std::min(this->dist(p2, p3), this->dist(p3, p1)));
+	}
+
+	return 0.0;
 }

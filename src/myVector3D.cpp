@@ -1,8 +1,10 @@
-#include "myVector3D.h"
-#include "myPoint3D.h"
+#include "myVector3D.hpp"
+#include "myPoint3D.hpp"
 #include <iostream>
- 
+#include <memory>
 myVector3D::myVector3D() {}
+
+myVector3D::myVector3D(const myVector3D& p):dX(p.dX),dY(p.dY),dZ(p.dZ){}
 
 myVector3D::myVector3D(double dx, double dy, double dz)
 {
@@ -21,7 +23,7 @@ double myVector3D::operator*(const myVector3D & v1) const
 // 	return myVector3D(dX+v1.dX, dY+v1.dY, dZ+v1.dZ);
 // }
 
-myVector3D myVector3D::operator+(const myVector3D  v1) const
+myVector3D myVector3D::operator+(const myVector3D & v1) const
 {
 	return myVector3D(dX+v1.dX, dY+v1.dY, dZ+v1.dZ);
 }
@@ -77,10 +79,10 @@ myVector3D myVector3D::crossproduct(const myVector3D & v1) const
 	return result;
 }
 
-void myVector3D::setNormal(myPoint3D *p1, myPoint3D *p2, myPoint3D *p3)
+void myVector3D::setNormal(const myPoint3D& p1,const myPoint3D& p2,const myPoint3D &p3)
 {
-	myVector3D v1 (p2->X - p1->X, p2->Y - p1->Y, p2->Z - p1->Z);
-	myVector3D v2 (p3->X - p2->X, p3->Y - p2->Y, p3->Z - p2->Z);
+	myVector3D v1 (p2.X - p1.X, p2.Y - p1.Y, p2.Z - p1.Z);
+	myVector3D v2 (p3.X - p2.X, p3.Y - p2.Y, p3.Z - p2.Z);
 
 	crossproduct(v1, v2);
 	normalize();

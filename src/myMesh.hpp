@@ -1,8 +1,8 @@
 #pragma once
 
-#include "myFace.h"
-#include "myHalfedge.h"
-#include "myVertex.h"
+#include "myFace.hpp"
+#include "myHalfedge.hpp"
+#include "myVertex.hpp"
 #include <vector>
 #include <string>
 
@@ -14,7 +14,7 @@ class myMesh
 	std::vector<myHalfedge *> halfedges;
 	std::vector<myFace *> faces;
 	std::string name;
-
+  
 	void checkMesh();
 	bool readFile(std::string filename);
 	void computeNormals();
@@ -22,22 +22,22 @@ class myMesh
 
   void inflateMesh(double dist);
   void smoothenMesh(double dist);
-  void splitFace(myFace *f, myPoint3D *p);
+  void splitFace(myFace *, std::shared_ptr<myPoint3D>);
 
   void subdivisionCatmullClark();
 
-	void splitFaceTRIS(myFace *, myPoint3D *);
+	void splitFaceTRIS(myFace *, std::shared_ptr<myPoint3D> );
 
-	void splitEdge(myHalfedge *, myPoint3D *);
-	void splitFaceQUADS(myFace *, myPoint3D *);
+	void splitEdge(myHalfedge *, std::shared_ptr<myPoint3D>);
+	void splitFaceQUADS(myFace *, std::shared_ptr<myPoint3D>);
 
 	void triangulate();
 	bool triangulate(myFace *,int place);
 
-  
 	void clear();
 
 	myMesh(void);
+  myMesh(const myMesh& o);
 	~myMesh(void);
 };
 

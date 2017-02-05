@@ -11,6 +11,7 @@ class myHalfedge
 {
 public:
 	myVertex *source;
+
 	myFace *adjacent_face;
 	myHalfedge *next;
 	myHalfedge *prev;

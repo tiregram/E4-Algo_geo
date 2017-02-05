@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o"
+  "CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o"
   "CMakeFiles/Mesh.bin.dir/src/main.cpp.o"
+  "CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o"
   "CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o"
   "CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o"
   "CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o"

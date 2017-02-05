@@ -136,6 +136,60 @@ nfd/fast:
 	$(MAKE) -f lib/nfd/CMakeFiles/nfd.dir/build.make lib/nfd/CMakeFiles/nfd.dir/build
 .PHONY : nfd/fast
 
+src/Globalvar.o: src/Globalvar.cpp.o
+
+.PHONY : src/Globalvar.o
+
+# target to build an object file
+src/Globalvar.cpp.o:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o
+.PHONY : src/Globalvar.cpp.o
+
+src/Globalvar.i: src/Globalvar.cpp.i
+
+.PHONY : src/Globalvar.i
+
+# target to preprocess a source file
+src/Globalvar.cpp.i:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.i
+.PHONY : src/Globalvar.cpp.i
+
+src/Globalvar.s: src/Globalvar.cpp.s
+
+.PHONY : src/Globalvar.s
+
+# target to generate assembly for a file
+src/Globalvar.cpp.s:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.s
+.PHONY : src/Globalvar.cpp.s
+
+src/helperFunctions.o: src/helperFunctions.cpp.o
+
+.PHONY : src/helperFunctions.o
+
+# target to build an object file
+src/helperFunctions.cpp.o:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o
+.PHONY : src/helperFunctions.cpp.o
+
+src/helperFunctions.i: src/helperFunctions.cpp.i
+
+.PHONY : src/helperFunctions.i
+
+# target to preprocess a source file
+src/helperFunctions.cpp.i:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.i
+.PHONY : src/helperFunctions.cpp.i
+
+src/helperFunctions.s: src/helperFunctions.cpp.s
+
+.PHONY : src/helperFunctions.s
+
+# target to generate assembly for a file
+src/helperFunctions.cpp.s:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.s
+.PHONY : src/helperFunctions.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -162,6 +216,33 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/matrix.o: src/matrix.cpp.o
+
+.PHONY : src/matrix.o
+
+# target to build an object file
+src/matrix.cpp.o:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o
+.PHONY : src/matrix.cpp.o
+
+src/matrix.i: src/matrix.cpp.i
+
+.PHONY : src/matrix.i
+
+# target to preprocess a source file
+src/matrix.cpp.i:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/matrix.cpp.i
+.PHONY : src/matrix.cpp.i
+
+src/matrix.s: src/matrix.cpp.s
+
+.PHONY : src/matrix.s
+
+# target to generate assembly for a file
+src/matrix.cpp.s:
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/matrix.cpp.s
+.PHONY : src/matrix.cpp.s
 
 src/myFace.o: src/myFace.cpp.o
 
@@ -335,9 +416,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... Mesh.bin"
 	@echo "... nfd"
+	@echo "... src/Globalvar.o"
+	@echo "... src/Globalvar.i"
+	@echo "... src/Globalvar.s"
+	@echo "... src/helperFunctions.o"
+	@echo "... src/helperFunctions.i"
+	@echo "... src/helperFunctions.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/matrix.o"
+	@echo "... src/matrix.i"
+	@echo "... src/matrix.s"
 	@echo "... src/myFace.o"
 	@echo "... src/myFace.i"
 	@echo "... src/myFace.s"

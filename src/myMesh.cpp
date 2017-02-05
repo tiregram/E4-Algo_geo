@@ -1,32 +1,81 @@
-#include "myMesh.h"
+#include "myMesh.hpp"
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <map>
 #include <utility>
 #include <GL/glew.h>
-#include "myPoint3D.h"
-#include "myVector3D.h"
+
+#include "myPoint3D.hpp"
+#include "myVector3D.hpp"
 
 
 using namespace std;
 
 myMesh::myMesh(void)
 {
-	/**** TODO ****/
+  this->name = std::string("struct mesh whith no name");
 }
 
+myMesh::myMesh(const myMesh& o):vertices(o.vertices.size()),faces(o.faces.size()),halfedges(o.halfedges.size())
 
-// myMesh::myMesh(const myMesh& o)
-// {
-// 	this->name = o->name;
-//   //face
+{
+	this->name = o.name;
 
-//   //edge
+  for(int i = 0; i < o.vertices.size(); i++)
+    {
+      this->vertices.push_back(new myVertex());
 
-//   //vertices
+      o.vertices[i]->index = i;
+      this->vertices[i]->index = i;
+    }
 
-// }
+  for(int i = 0; i < o.halfedges.size(); i++)
+    {
+      this->halfedges.push_back(new myHalfedge());
+
+      o.halfedges[i]->index = i;
+      this->halfedges[i]->index = i;
+
+    }
+
+  for(int i = 0; i < o.faces.size(); i++)
+    {
+      this->faces.push_back(new myFace());
+
+      o.faces[i]->index = i;
+      this->faces[i]->index = i;
+
+    }
+
+  for(int i = 0; i < o.faces.size(); i++)
+    {
+      *this->faces[i]->normal = *o.faces[i]->normal;
+      this->faces[i]->adjacent_halfedge = this->halfedges[o.faces[i]->adjacent_halfedge->index];
+    }
+
+
+  for(int i = 0; i < o.halfedges.size(); i++)
+    {
+      this->halfedges[i]->adjacent_face = this->faces[o.halfedges[i]->adjacent_face->index];
+      this->halfedges[i]->next = this->halfedges[o.halfedges[i]->next->index];
+      this->halfedges[i]->prev = this->halfedges[o.halfedges[i]->prev->index];
+      this->halfedges[i]->twin = this->halfedges[o.halfedges[i]->twin->index];
+
+      this->halfedges[i]->source = this->vertices[o.halfedges[i]->source->index];
+    }
+
+  for(int i = 0; i < o.vertices.size(); i++)
+    {
+      this->vertices[i]->point = std::make_shared<myPoint3D>(*o.vertices[i]->point);
+      this->vertices[i]->originof = this->halfedges[o.vertices[i]->originof->index];
+      this->vertices[i]->normal = std::make_shared<myVector3D>(*o.vertices[i]->normal);
+    }
+
+
+
+}
 
 myMesh::~myMesh(void)
 {
@@ -191,7 +240,7 @@ bool myMesh::readFile(std::string filename)
 			myline >> x; myline >> y; myline >> z;
 
 			myVertex *v = new myVertex();
-			v->point = new myPoint3D(x, y, z);
+			v->point = std::make_shared<myPoint3D>(x, y, z);
 
       v->index = vertices.size();
       vertices.push_back(v);
@@ -304,14 +353,14 @@ void myMesh::normalize()
 }
 
 
-void myMesh::splitFaceTRIS(myFace *f, myPoint3D *p)
+void myMesh::splitFaceTRIS(myFace *f, std::shared_ptr<myPoint3D> p)
 {
-	/**** TODO ****/
+	this->splitFace(f,p);
 }
 
 
 
-void myMesh::splitFaceQUADS(myFace *f, myPoint3D *p)
+void myMesh::splitFaceQUADS(myFace *f, std::shared_ptr<myPoint3D> p)
 {
 
 
@@ -404,7 +453,7 @@ void myMesh::triangulate()
 
 }
 
-void myMesh::splitFace(myFace *f, myPoint3D *p)
+void myMesh::splitFace(myFace *f,std::shared_ptr<myPoint3D> p)
 {
 
 
@@ -611,7 +660,7 @@ void myMesh::smoothenMesh(double dist)
 
 }
 
-void myMesh::splitEdge(myHalfedge *e, myPoint3D *p)
+void myMesh::splitEdge(myHalfedge *e, std::shared_ptr<myPoint3D> p)
 {
 
   // se_fi = 
@@ -712,13 +761,13 @@ void myMesh::subdivisionCatmullClark()
   ////
   // centroid
   ///
-  std::vector<myPoint3D*> centroid = std::vector<myPoint3D*>(this->faces.size());
+  std::vector<std::shared_ptr<myPoint3D>> centroid = std::vector<std::shared_ptr<myPoint3D>>(this->faces.size());
 
   int size =  this->faces.size();
 
   for(int i = 0; i < size; i++ )
     {
-      auto faceCentroid = new myPoint3D(0,0,0);
+      auto faceCentroid = std::make_shared<myPoint3D>(0,0,0);
 
       auto f = this->faces[i]->adjacent_halfedge;
       auto itef = this->faces[i]->adjacent_halfedge;
@@ -733,23 +782,15 @@ void myMesh::subdivisionCatmullClark()
 
       *faceCentroid = *faceCentroid/count;
       centroid[i] = faceCentroid;
-      //      cout<<"face at "<< i << " is "<< this->faces[i] << " with " << this->faces[i]->index<<"\n ";
-      //      cout << "point:"<<count<<"  p"<<faceCentroid->X<<","<<faceCentroid->Y<<","<<faceCentroid->Z << "\n";
-      //splitFace(this->faces[i],faceCentroid);
-
     }
 
-
-  ////
-  // hedge
-  ////
 
   if( this->halfedges.size() % 2 != 0)
     {cout<<"error"<<std::endl;
       exit(2);}
 
   int nbHalfedges = this->halfedges.size() / 2;
-  std::map<std::pair<int,int>, myPoint3D*> mapii = std::map<std::pair<int,int>, myPoint3D*>();
+  auto mapii = std::map<std::pair<int,int>, std::shared_ptr<myPoint3D> >();
 
   for (auto i : this->halfedges)
     {
@@ -766,7 +807,7 @@ void myMesh::subdivisionCatmullClark()
 
 
 
-      mapii[pair] = new myPoint3D((  *centroid[i->adjacent_face->index]
+      mapii[pair] = std::make_shared<myPoint3D>((  *centroid[i->adjacent_face->index]
                                    + *centroid[i->twin->adjacent_face->index]
                                    + *i->source->point
                                    + *i->twin->source->point) / 4);
@@ -777,7 +818,7 @@ void myMesh::subdivisionCatmullClark()
 
 
   /// vertices compute
-  auto newVerticePosition = std::vector<myPoint3D*>(this->vertices.size());
+  auto newVerticePosition = std::vector<std::shared_ptr<myPoint3D> >(this->vertices.size());
 
   for(int i = 0 ; i < this->vertices.size(); i++)
     {
@@ -810,14 +851,13 @@ void myMesh::subdivisionCatmullClark()
       // compute
       myPoint3D vv =  (q  +  r * 2  +  *(this->vertices[i]->point) * (n-3))/n;
 
-      newVerticePosition[i] = new myPoint3D(vv);
+      newVerticePosition[i] = std::make_shared<myPoint3D>(vv);
     }
 
    // apply position
    for(int i = 0 ; i < this->vertices.size(); i++)
      {
 
-       delete this->vertices[i]->point ;
        this->vertices[i]->point = newVerticePosition[i];
        //cout << this->vertices[i]->point->X << this->vertices[i]->point->Y <<this->vertices[i]->point->Z << "\n";
      }
@@ -833,7 +873,8 @@ void myMesh::subdivisionCatmullClark()
     {
       // cout << "face at "<< i << " is "<< this->faces[i] << " with " << this->faces[i]->index<<"\n ";
       this->faces[i]->adjacent_halfedge = this->faces[i]->adjacent_halfedge->next;
-      this->splitFaceQUADS(this->faces[i], centroid[i]);
+      this->
+        splitFaceQUADS(this->faces[i], centroid[i]);
     }
 
 }

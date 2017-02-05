@@ -57,9 +57,57 @@ include CMakeFiles/Mesh.bin.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Mesh.bin.dir/flags.make
 
+CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
+CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o: src/Globalvar.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/Globalvar.cpp
+
+CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruhtra/Downloads/test/E4-Algo_geo/src/Globalvar.cpp > CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.i
+
+CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruhtra/Downloads/test/E4-Algo_geo/src/Globalvar.cpp -o CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.s
+
+CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.requires:
+
+.PHONY : CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.requires
+
+CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.provides: CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.provides.build
+.PHONY : CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.provides
+
+CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.provides.build: CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o
+
+
+CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
+CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o: src/helperFunctions.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/helperFunctions.cpp
+
+CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruhtra/Downloads/test/E4-Algo_geo/src/helperFunctions.cpp > CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.i
+
+CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruhtra/Downloads/test/E4-Algo_geo/src/helperFunctions.cpp -o CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.s
+
+CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.requires:
+
+.PHONY : CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.requires
+
+CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.provides: CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.provides.build
+.PHONY : CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.provides
+
+CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.provides.build: CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o
+
+
 CMakeFiles/Mesh.bin.dir/src/main.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
 CMakeFiles/Mesh.bin.dir/src/main.cpp.o: src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Mesh.bin.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Mesh.bin.dir/src/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/main.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/main.cpp
 
 CMakeFiles/Mesh.bin.dir/src/main.cpp.i: cmake_force
@@ -81,9 +129,33 @@ CMakeFiles/Mesh.bin.dir/src/main.cpp.o.provides: CMakeFiles/Mesh.bin.dir/src/mai
 CMakeFiles/Mesh.bin.dir/src/main.cpp.o.provides.build: CMakeFiles/Mesh.bin.dir/src/main.cpp.o
 
 
+CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
+CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o: src/matrix.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/matrix.cpp
+
+CMakeFiles/Mesh.bin.dir/src/matrix.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Mesh.bin.dir/src/matrix.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ruhtra/Downloads/test/E4-Algo_geo/src/matrix.cpp > CMakeFiles/Mesh.bin.dir/src/matrix.cpp.i
+
+CMakeFiles/Mesh.bin.dir/src/matrix.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Mesh.bin.dir/src/matrix.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ruhtra/Downloads/test/E4-Algo_geo/src/matrix.cpp -o CMakeFiles/Mesh.bin.dir/src/matrix.cpp.s
+
+CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.requires:
+
+.PHONY : CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.requires
+
+CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.provides: CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Mesh.bin.dir/build.make CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.provides.build
+.PHONY : CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.provides
+
+CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.provides.build: CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o
+
+
 CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
 CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o: src/myFace.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/myFace.cpp
 
 CMakeFiles/Mesh.bin.dir/src/myFace.cpp.i: cmake_force
@@ -107,7 +179,7 @@ CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o.provides.build: CMakeFiles/Mesh.bin.dir
 
 CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
 CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o: src/myHalfedge.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/myHalfedge.cpp
 
 CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.i: cmake_force
@@ -131,7 +203,7 @@ CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o.provides.build: CMakeFiles/Mesh.bin
 
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o: src/myMesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/myMesh.cpp
 
 CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.i: cmake_force
@@ -155,7 +227,7 @@ CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o.provides.build: CMakeFiles/Mesh.bin.dir
 
 CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
 CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.o: src/myPoint3D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/myPoint3D.cpp
 
 CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.i: cmake_force
@@ -179,7 +251,7 @@ CMakeFiles/Mesh.bin.dir/src/myPoint3D.cpp.o.provides.build: CMakeFiles/Mesh.bin.
 
 CMakeFiles/Mesh.bin.dir/src/myVector3D.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
 CMakeFiles/Mesh.bin.dir/src/myVector3D.cpp.o: src/myVector3D.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myVector3D.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myVector3D.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/myVector3D.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/myVector3D.cpp
 
 CMakeFiles/Mesh.bin.dir/src/myVector3D.cpp.i: cmake_force
@@ -203,7 +275,7 @@ CMakeFiles/Mesh.bin.dir/src/myVector3D.cpp.o.provides.build: CMakeFiles/Mesh.bin
 
 CMakeFiles/Mesh.bin.dir/src/myVertex.cpp.o: CMakeFiles/Mesh.bin.dir/flags.make
 CMakeFiles/Mesh.bin.dir/src/myVertex.cpp.o: src/myVertex.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myVertex.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Mesh.bin.dir/src/myVertex.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Mesh.bin.dir/src/myVertex.cpp.o -c /home/ruhtra/Downloads/test/E4-Algo_geo/src/myVertex.cpp
 
 CMakeFiles/Mesh.bin.dir/src/myVertex.cpp.i: cmake_force
@@ -227,7 +299,10 @@ CMakeFiles/Mesh.bin.dir/src/myVertex.cpp.o.provides.build: CMakeFiles/Mesh.bin.d
 
 # Object files for target Mesh.bin
 Mesh_bin_OBJECTS = \
+"CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o" \
+"CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o" \
 "CMakeFiles/Mesh.bin.dir/src/main.cpp.o" \
+"CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o" \
 "CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o" \
 "CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o" \
 "CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o" \
@@ -238,7 +313,10 @@ Mesh_bin_OBJECTS = \
 # External object files for target Mesh.bin
 Mesh_bin_EXTERNAL_OBJECTS =
 
+Mesh.bin: CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o
+Mesh.bin: CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o
 Mesh.bin: CMakeFiles/Mesh.bin.dir/src/main.cpp.o
+Mesh.bin: CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o
 Mesh.bin: CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o
 Mesh.bin: CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o
 Mesh.bin: CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o
@@ -256,7 +334,7 @@ Mesh.bin: /usr/lib64/libXmu.so
 Mesh.bin: /usr/lib64/libXi.so
 Mesh.bin: lib/nfd/libnfd.a
 Mesh.bin: CMakeFiles/Mesh.bin.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Mesh.bin"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable Mesh.bin"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Mesh.bin.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -264,7 +342,10 @@ CMakeFiles/Mesh.bin.dir/build: Mesh.bin
 
 .PHONY : CMakeFiles/Mesh.bin.dir/build
 
+CMakeFiles/Mesh.bin.dir/requires: CMakeFiles/Mesh.bin.dir/src/Globalvar.cpp.o.requires
+CMakeFiles/Mesh.bin.dir/requires: CMakeFiles/Mesh.bin.dir/src/helperFunctions.cpp.o.requires
 CMakeFiles/Mesh.bin.dir/requires: CMakeFiles/Mesh.bin.dir/src/main.cpp.o.requires
+CMakeFiles/Mesh.bin.dir/requires: CMakeFiles/Mesh.bin.dir/src/matrix.cpp.o.requires
 CMakeFiles/Mesh.bin.dir/requires: CMakeFiles/Mesh.bin.dir/src/myFace.cpp.o.requires
 CMakeFiles/Mesh.bin.dir/requires: CMakeFiles/Mesh.bin.dir/src/myHalfedge.cpp.o.requires
 CMakeFiles/Mesh.bin.dir/requires: CMakeFiles/Mesh.bin.dir/src/myMesh.cpp.o.requires

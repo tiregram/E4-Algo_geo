@@ -1,6 +1,10 @@
 #pragma once
 
-#include "myPoint3D.h"
+
+
+#include <memory>
+
+class myPoint3D;
 
 class myHalfedge;
 class myVector3D;
@@ -8,12 +12,13 @@ class myVector3D;
 class myVertex
 {
 public:
-	myPoint3D *point;
+  
 	myHalfedge *originof;
 
 	int index;  //use as you wish.
 
-	myVector3D *normal;
+	std::shared_ptr<myVector3D> normal;
+  std::shared_ptr<myPoint3D>  point;
 
   myPoint3D overageNeib();
 	void computeNormal();
