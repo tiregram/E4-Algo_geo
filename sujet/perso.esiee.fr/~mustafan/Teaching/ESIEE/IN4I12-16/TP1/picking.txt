@@ -1,0 +1,64 @@
+This function computes the 3D ray when you CTRL-click with the mouse on the screen. Add to your file helperFunctions.h. 
+
+----------------
+myVector3D * constructRay(int x, int y)
+{
+	glm::mat4 projection_matrix = glm::perspective(glm::radians(fovy), (float)Glut_w / (float)Glut_h, zNear, zFar);
+	glm::mat4 view_matrix = glm::lookAt(glm::vec3(camera_eye.X, camera_eye.Y, camera_eye.Z),
+		glm::vec3(camera_eye.X + camera_forward.dX, camera_eye.Y + camera_forward.dY, camera_eye.Z + camera_forward.dZ),
+		glm::vec3(camera_up.dX, camera_up.dY, camera_up.dZ));
+
+	float x_c = (2.0*x) / (float)Glut_w - 1.0;
+	float y_c = (2.0*y) / (float)Glut_h - 1.0;
+
+	glm::vec4 tmp = glm::vec4(x_c, y_c, -1.0f, 1.0f);
+    tmp = glm::inverse(projection_matrix) * tmp;
+	tmp.z = -1.0f;
+	tmp.w = 0.0f;
+
+	tmp = glm::inverse(view_matrix) * tmp;
+
+	myVector3D *r = new myVector3D(tmp.x, tmp.y, tmp.z);
+	r->normalize();
+	return r;
+}
+----------------
+
+To call this function, you can modify your mouse input function in the file "heperFunctions.h" to the following function, where the variable myVector3D *pickingray contains the unit vector, starting from the camera_eye point, that defines the 3D ray from the mouse input.
+
+------------
+//This function is called when a mouse button is pressed.
+void mouse(int button, int state, int x, int y)
+{
+	// Remember button state 
+	button_pressed = (state == GLUT_DOWN) ? 1 : 0;
+
+	// Remember mouse position 
+	GLUTmouse[0] = x;
+	GLUTmouse[1] = Glut_h - y;
+
+	int mode = glutGetModifiers();
+	// Process mouse button event
+	if (state == GLUT_DOWN)
+	{
+		if (button == GLUT_LEFT_BUTTON) {
+			if (mode == GLUT_ACTIVE_CTRL)
+			{
+				cout << "Picking a point.\n";
+				myVector3D *picking_ray = constructRay(x, Glut_h - y);
+                                //write code here to call functions for closest vertices/edges/faces from this ray to the mesh.
+			}
+			if (mode == GLUT_ACTIVE_SHIFT) {
+			}
+		}
+		else if (button == GLUT_MIDDLE_BUTTON) {}
+		else if (button == GLUT_RIGHT_BUTTON) {}
+	}
+
+	if (state == GLUT_UP)
+	{
+	}
+
+	glutPostRedisplay();
+}
+------------

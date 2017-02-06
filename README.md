@@ -1,34 +1,51 @@
 # ALGO GEO
 
-
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i0.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i2.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i3.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i4.png)
 
 ## DOC
 ### Sujet
-sujet/
+
 ### TP
-sujet/
+
 ### TD
-sujet/
+
+### site
+
+site du profeseur
+---------------------
+
+https://perso.esiee.fr/~mustafan/
+
+site pour IN4I12
+---------------------
+
+https://perso.esiee.fr/~mustafan/Teaching/ESIEE/IN4I12-16/
+
+if the website is delete you can consult it in the directory
+sujet/perso.esiee.fr
 
 ## Code
 
-the package require is install by 
+Install the package need by the project
 
 ```bash
-#for arch
+# for arch
 pacman -S glew freeglut glm glfw
-# add the other ...
+# add the other distrib ...
 
 ```
 
-to run the demo program run this.
+To run the demo program run this.
 
 ```bash
 git clone http://github.com/tiregram/E4-Algo_geo
 cd E4-Algo_geo
 
 # generate make file
-cmake .x
+cmake .
 
 # build
 make
