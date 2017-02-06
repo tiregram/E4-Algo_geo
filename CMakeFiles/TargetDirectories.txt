@@ -1,8 +1,0 @@
-/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles/rebuild_cache.dir
-/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles/edit_cache.dir
-/home/ruhtra/Downloads/test/E4-Algo_geo/CMakeFiles/Mesh.bin.dir
-/home/ruhtra/Downloads/test/E4-Algo_geo/lib/CMakeFiles/rebuild_cache.dir
-/home/ruhtra/Downloads/test/E4-Algo_geo/lib/CMakeFiles/edit_cache.dir
-/home/ruhtra/Downloads/test/E4-Algo_geo/lib/nfd/CMakeFiles/rebuild_cache.dir
-/home/ruhtra/Downloads/test/E4-Algo_geo/lib/nfd/CMakeFiles/edit_cache.dir
-/home/ruhtra/Downloads/test/E4-Algo_geo/lib/nfd/CMakeFiles/nfd.dir

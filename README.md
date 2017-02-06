@@ -42,7 +42,7 @@ soft for the visualisation and edition to mesh.
 ## Bind Key
 
 | key       | enum CALL           |
-| ------    | : -------------:    |
+|-----------|---------------------|
 | `n`       | MENU_DRAWNORMALS    |
 | `v` & `w` | MENU_DRAWWIREFRAME  |
 | `c`       | MENU_CHECK          |
