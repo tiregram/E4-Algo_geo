@@ -15,6 +15,7 @@ soft for the visualisation and edition to mesh.
 - [X] Git project
 - [X] Linux port
 - [X] separation of helperfunction.h in  helperfunction.hpp and helperfunction.cpp
+- [x] matrix.cpp for solving the systems
 - [X] Bind key
 - [X] shared_ptr on point and normal
 - [ ] shared_ptr on the struct
@@ -98,5 +99,6 @@ make
 # run
 ./Mesh.bin
 ```
+
 if you have some problem let me a message at ruhtra.mar@gmail.com
 
