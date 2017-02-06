@@ -5,10 +5,44 @@
 ![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i3.png)
 ![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i4.png)
 
-## DOC
-### Sujet
 
-### TP
+
+
+### Cours
+- [X] read File
+- [x] normal
+- [x] distance point   to  point
+- [x] distance line    to  point
+- [x] distance segment to  segment 
+- [x] distance point   to  segment 
+- [ ] distance line    to  face
+
+## TP
+
+### Extra
+- [X] Cmake file
+- [X] Git project
+- [X] Linux port
+
+### TP1
+- [X] read File
+- [x] normal
+- [x] distance point   to  point
+- [x] distance line    to  point
+- [x] distance segment to  segment 
+- [x] distance point   to  segment 
+- [ ] distance line    to  face
+
+### TP2
+- [x] inflate
+- [x] smooth
+- [x] split face 3
+- [x] split face 4
+- [x] Catmull-Clark
+
+### TP3
+- [ ] Contract
+- [ ] Simplified
 
 ### TD
 
