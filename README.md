@@ -1,21 +1,12 @@
 # ALGO GEO
+soft for the visualisation and edition to mesh.
 
 ![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i0.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i1.png)
 ![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i2.png)
 ![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i3.png)
-![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i4.png)
 
-
-
-
-### Cours
-- [X] read File
-- [x] normal
-- [x] distance point   to  point
-- [x] distance line    to  point
-- [x] distance segment to  segment 
-- [x] distance point   to  segment 
-- [ ] distance line    to  face
+## Cours
 
 ## TP
 
@@ -23,6 +14,10 @@
 - [X] Cmake file
 - [X] Git project
 - [X] Linux port
+- [X] separation of helperfunction.h in  helperfunction.hpp and helperfunction.cpp
+- [X] Bind key
+- [X] shared_ptr on point and normal
+- [ ] shared_ptr on the struct
 
 ### TP1
 - [X] read File
@@ -44,9 +39,25 @@
 - [ ] Contract
 - [ ] Simplified
 
-### TD
+## Bind Key
 
-### site
+| key       | enum CALL           |
+| ------    | : -------------:    |
+| `n`       | MENU_DRAWNORMALS    |
+| `v` & `w` | MENU_DRAWWIREFRAME  |
+| `c`       | MENU_CHECK          |
+| `C`       | MENU_CATMULLCLARK   |
+| `t`       | MENU_TRIANGULATE    |
+| `s`       | MENU_DRAWSILHOUETTE |
+| `m`       | MENU_DRAWMESH       |
+| `i`       | MENU_INFLATE        |
+| `F`       | MENU_SPLITFACE      |
+| `R`       | MENU_SPLITFACE4     |
+| `E`       | MENU_SPLITEDGE      |
+| `S`       | MENU_SMOOTHEN       |
+
+
+## site
 
 site du profeseur
 ---------------------
@@ -63,7 +74,7 @@ sujet/perso.esiee.fr
 
 ## Code
 
-Install the package need by the project
+Install the package need for the project
 
 ```bash
 # for arch
@@ -87,4 +98,5 @@ make
 # run
 ./Mesh.bin
 ```
+if you have some problem let me a message at ruhtra.mar@gmail.com
 
