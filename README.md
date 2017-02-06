@@ -1,9 +1,9 @@
 # ALGO GEO
 
-![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i0.png)
-![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i2.png)
-![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i3.png)
-![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/img/i4.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i0.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i2.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i3.png)
+![alt tag](https://raw.githubusercontent.com/tiregram/E4-Algo_geo/master/img/i4.png)
 
 ## DOC
 ### Sujet
